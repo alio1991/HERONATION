@@ -21,6 +21,10 @@ body {
   color: var(--dark-color);
   font-size: 18px;
   line-height: 1.5rem;
+  background-image: url('./img/images/background_cropped_image.jpg');
+  background-position: top left;
+  background-size: 100% auto;
+  background-color: var(--base-color);
 }
 
 [hidden] {
