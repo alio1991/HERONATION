@@ -3,15 +3,12 @@ import { Router } from '@vaadin/router';
 export const initRouter = node =>{
     const router = new Router(node);
     router.setRoutes([
+        
         {
-            path: '/',
-            redirect: '/test-page',
-        },
-        {
-            path:'/test-page',
-            component: 'test-page',
+            path:'/',
+            component: 'default-view',
             action: ()=>{
-                import( './views/test-page/test-page.js')
+                import( './views/default-view/default-view.js')
             }
         },
         {

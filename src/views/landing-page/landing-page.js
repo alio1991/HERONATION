@@ -6,7 +6,14 @@ export class LandingPage extends LitElement {
   
   static get styles() {
     return css`
-    :host {
+    :host, main{
+      width: 100%;
+      height: 100%;
+      margin: 0px;
+      padding: 0px;
+      border: 0px;
+      overflow: hidden;
+      background-color: rgba(var(--base-color), .5)
     }
     `;
   }
@@ -28,13 +35,7 @@ export class LandingPage extends LitElement {
 
   render() {
     return html`
-    <nav>
-      <a href="/test-page">Test</a>
-      <a href="/testing-page">Testing</a>
-    </nav>
-        <div>
-            <main></main>
-        </div>
+    <main></main>
     `;
   }
 

@@ -3,13 +3,14 @@
 }
 
 html {
-  --base-color: #f2f4f6;
-  --green-color: #1ee3cf;
-  --blue-color: #6b48ff;
-  --dark-color: #0d3f67;
+  --base-color: 242, 244, 246;
+  --green-color: 30, 227, 207;
+  --purple-color: 107, 72, 255;
+  --dark-color: 13, 63, 103;
   --spacing: 16px;
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
 body {
@@ -25,6 +26,7 @@ body {
   background-position: top left;
   background-size: 100% auto;
   background-color: var(--base-color);
+  height: 100%;
 }
 
 [hidden] {
