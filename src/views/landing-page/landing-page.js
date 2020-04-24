@@ -4,24 +4,24 @@ import '../../components/main-header/main-header.js';
 
 
 export class LandingPage extends LitElement {
-  
+
   static get styles() {
     return css`
     :host {
     }
     `;
   }
-  
+
   static get properties() {
     return {
-      _page: { 
+      _page: {
         type: String
       }
-     
+
     };
   }
 
-  constructor(){
+  constructor() {
     super();
     this._page = '';
   }
@@ -29,22 +29,22 @@ export class LandingPage extends LitElement {
 
   render() {
     return html`
-    <main-header .companyName=${"HERONATION" } .userLogged=${false}></main-headeer>
+    <main-header .companyName=${"HERONATION"} .userLogged=${false}></main-headeer>
     <nav>
       <a href="/test-page">Test</a>
       <a href="/testing-page">Testing</a>
     </nav>
-        <div>
-            <main></main>
-        </div>
+      <div>
+          <main></main>
+      </div>
     `;
   }
 
-    updated(changgeProps){
-      if(changgeProps.has('_page')){
-        initRouter(this.shadowRoot.querySelector('main'));
-      }
+  updated(changgeProps) {
+    if (changgeProps.has('_page')) {
+      initRouter(this.shadowRoot.querySelector('main'));
     }
+  }
 }
 
 customElements.define('landing-page', LandingPage);
