@@ -10,11 +10,15 @@ export class MainHeader extends LitElement {
     return css`
     :host {
       width: 100%;
-        display: flex;
-        align-items: center;
-        height: var(--header-height);
-        border-bottom: 2px solid black;padding: 5px;
-        box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      height: var(--header-height);
+      border-bottom: 2px solid black;padding: 5px;
+      box-sizing: border-box;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 3;
     }
 
     a{
@@ -60,7 +64,7 @@ export class MainHeader extends LitElement {
   // </nav>
 
   render() {
-    const findComponent = this.userLogged ? html`<logged-user></logged-user>` :  html`<find-centers></find-centers>`;
+    const findComponent = this.userLogged ? html`<logged-user></logged-user>` : html`<find-centers></find-centers>`;
     return html`
         <div class="logo-name">
         <a href="/"><h1>${this.companyName}</h1></a>
