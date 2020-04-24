@@ -5,7 +5,7 @@ export const initRouter = node =>{
     router.setRoutes([
         {
             path: '/',
-            redirect: 'test-page',
+            redirect: '/test-page',
         },
         {
             path:'/test-page',
