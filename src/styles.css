@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  --header-height: 120px;
 }
 
 html {
