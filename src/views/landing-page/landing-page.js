@@ -12,7 +12,7 @@ export class LandingPage extends LitElement {
       margin: 0px;
       padding: 0px;
       border: 0px;
-      overflow: hidden;
+      overflow-x: hidden;
       background-color: rgba(var(--base-color), .5)
     }
     `;

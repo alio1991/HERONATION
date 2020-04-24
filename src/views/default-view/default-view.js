@@ -5,14 +5,14 @@ export class DefaultView extends LitElement {
   static get styles() {
     return css`
     :host {
-      width: 116%;
+      width: 120%;
       height: 100%;
       display: flex;
-      margin-left: -8%;
+      margin-left: -10%;
     }
     
     .selector{
-      width: 58%;
+      width: 60%;
       height: 100%;
       display:flex;
       align-items: center;
@@ -40,10 +40,7 @@ export class DefaultView extends LitElement {
 
   static get properties() {
     return {
-      movie: {
-        type: Object
-      },
-      class: {
+      profileSelected: {
         type: String
       }
     };
