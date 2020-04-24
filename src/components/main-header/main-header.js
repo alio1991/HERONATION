@@ -24,7 +24,7 @@ export class MainHeader extends LitElement {
     .logo-name{
       width: fit-content;
       flex-grow: 1;
-      margin-right: 5px;
+      margin: 5px;
       cursor: pointer;
     }
 
@@ -32,6 +32,7 @@ export class MainHeader extends LitElement {
       display: flex;
       justify-content: center;
       flex-grow: 3;
+      min-width: fit-content;
     }
 
     `;
