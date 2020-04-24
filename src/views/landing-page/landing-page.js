@@ -1,5 +1,6 @@
 import { html, css, LitElement } from 'lit-element';
 import { initRouter } from '../../router';
+import '../../components/main-header/main-header.js';
 
 
 export class LandingPage extends LitElement {
@@ -28,6 +29,7 @@ export class LandingPage extends LitElement {
 
   render() {
     return html`
+    <main-header .companyName=${"HERONATION" } .userLogged=${false}></main-headeer>
     <nav>
       <a href="/test-page">Test</a>
       <a href="/testing-page">Testing</a>
