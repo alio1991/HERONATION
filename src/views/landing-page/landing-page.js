@@ -29,7 +29,7 @@ export class LandingPage extends LitElement {
 
   render() {
     return html`
-    <main-header .companyName=${"HERONATION"} .userLogged=${false}></main-headeer>
+    <main-header .companyName=${"HERO|NATION"} .userLogged=${false}></main-headeer>
     <nav>
       <a href="/test-page">Test</a>
       <a href="/testing-page">Testing</a>
