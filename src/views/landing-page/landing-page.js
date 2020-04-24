@@ -33,7 +33,6 @@ export class LandingPage extends LitElement {
       <a href="/testing-page">Testing</a>
     </nav>
         <div>
-            <h1>Landing</h1>
             <main></main>
         </div>
     `;
