@@ -2,11 +2,10 @@ import { Router } from '@vaadin/router';
 
 export const initRouter = node =>{
     const router = new Router(node);
-    debugger;
     router.setRoutes([
         {
             path: '/',
-            redirect: 'test-page',
+            redirect: '/test-page',
         },
         {
             path:'/test-page',
