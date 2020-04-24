@@ -77,6 +77,10 @@ module.exports = ({ mode, presets }) => {
                 ]
               ]
             }
+          },
+          {
+            test: /\.(png|jpg)$/,
+            loader: 'url-loader'
           }
         ]
       },
