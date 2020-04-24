@@ -16,6 +16,11 @@ export class FindCenters extends LitElement {
         border-radius: 15px;
         width: 90%;
     }
+
+    .options{
+        display: flex;
+    }
+
     `;
     }
 
@@ -36,17 +41,30 @@ export class FindCenters extends LitElement {
 
 
     render() {
+
         return html`
         <p>Indique una dirección para encontrar los centros cercanos</p>
-        <input type="text" @keyup=${this.onDirectionChanges}/>
+        <div class="options">
+            <input class="direction" type="text"/>
+            <button type="button" @click=${this.onDirectionChanges}>🔍</button>
+            <button type="button" class="map-icon" @click=${this.getLocation}>📌</button>
+        </div>
     `;
     }
 
-    onDirectionChanges({target}) {
-        console.log(target.value);
-        
+    onDirectionChanges(ev) {
+        const inputValue = ev.target.parentElement.firstElementChild.value;
+        console.log(inputValue);
+        // href = "/test-page"
     }
 
+    getLocation() {
+        if (navigator.geolocation) { //check if geolocation is available
+            navigator.geolocation.getCurrentPosition(function (position) {
+                console.log(position);
+            });
+        }
+    }
     updated(changgeProps) {
         if (changgeProps.has('_page')) {
             initRouter(this.shadowRoot.querySelector('main'));
@@ -54,4 +72,4 @@ export class FindCenters extends LitElement {
     }
 }
 
-customElements.define('find-centers', FindCenters);
+    customElements.define('find-centers', FindCenters);
