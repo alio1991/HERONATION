@@ -2,6 +2,8 @@ import { html, css, LitElement } from 'lit-element';
 import { connect } from 'pwa-helpers';
 import { store } from './../../redux/store.js'
 import { setLocation } from './../../redux/actions/actions.js'
+import { setCoordinates } from './../../redux/actions/actions.js'
+import { Router } from '@vaadin/router';
 
 export class FindCenters extends connect(store)(LitElement) {
 
@@ -28,9 +30,7 @@ export class FindCenters extends connect(store)(LitElement) {
 
     static get properties() {
         return {
-          location:{
-            type: Object
-          }
+          
         };
     }
 
@@ -38,10 +38,6 @@ export class FindCenters extends connect(store)(LitElement) {
         super();
     }
 
-    stateChanged(state){
-        console.log('statechanged', state)
-        this.location = state.location;
-      }
 
     render() {
 
@@ -55,22 +51,18 @@ export class FindCenters extends connect(store)(LitElement) {
     `;
     }
 
-    dispatchLocationChange(){
-      store.dispatch(setLocation(this.location))
-    }
     
     onDirectionChanges(ev) {
-        this.location.stringLocation = ev.target.parentElement.firstElementChild.value;
-        this.dispatchLocationChange();
-                // window.location.href  = "/centers";
+        store.dispatch(setLocation(ev.target.parentElement.firstElementChild.value))
+        Router.go('/centers')
     }
 
     getLocation() {
         if (navigator.geolocation) { //check if geolocation is available
             navigator.geolocation.getCurrentPosition(function (position) {
-                console.log(position);
+                store.dispatch(setCoordinates({latitude: position.coords.latitude, longitude: position.coords.longitude}))
+                Router.go('/centers')
             });
-            // window.location.href  = "/centers";
         }else{
             alert('Esta opción no está disponible en este momento.');
         }
