@@ -1,14 +1,9 @@
 import { LOGIN_TYPE } from '../../assets/data/data.js';
+
 const initialStatus = {
   appName: 'Name',
-  location: {
-    stringLocation: '',
-    coordinatesLocation:
-    {
-      longitude: 0,
-      latitude: 0,
-    }
-  },
+  location: '',
+  coordinates: null,
   loginStatus:
   {
     status: false,
@@ -18,22 +13,31 @@ const initialStatus = {
 
 export const reducer = (state = initialStatus, action) => {
   switch (action.type) {
+
     case 'SET_APPNAME':
       return {
         ...state,
         appName: action.appName
       }
+
     case 'SET_LOCATION':
-      let newLocation = initialStatus.location;
-      if (typeof action.location === "string")
-        newLocation.stringLocation = action.location
-      else if (Object.hasOwnProperty(action.location, 'longitude') && Object.hasOwnProperty(action.location, 'latitude'))
-        [newLocation.coordinatesLocation.longitude, newLocation.coordinatesLocation.latitude] = action.location;
-      else newLocation = { ...state.location }
+      initialStatus.location = action.location;
+      initialStatus.coordinates = null;
       return {
         ...state,
-        location: newLocation
+        location: action.location,
+        coordinates: null
       }
+
+    case 'SET_COODINATES':
+      initialStatus.coordinates = action.coordinates;
+      initialStatus.location = '';
+      return {
+        ...state,
+        coordinates: action.coordinates,
+        location: ''
+      }
+
     case 'SET_LOGIN':
       let newLogin = initialStatus.loginStatus;
       LOGIN_TYPE.forEach(login => {
@@ -46,7 +50,8 @@ export const reducer = (state = initialStatus, action) => {
         ...state,
         loginStatus: { ...newLogin }
       }
-      default:
-        return state;
+    default:
+      return state;
   }
+
 }
