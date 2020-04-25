@@ -54,8 +54,7 @@ export class FindCenters extends LitElement {
 
     onDirectionChanges(ev) {
         const inputValue = ev.target.parentElement.firstElementChild.value;
-        console.log(inputValue);
-        // href = "/test-page"
+        window.location.href  = "/centers";
     }
 
     getLocation() {
@@ -63,13 +62,12 @@ export class FindCenters extends LitElement {
             navigator.geolocation.getCurrentPosition(function (position) {
                 console.log(position);
             });
+            window.location.href  = "/centers";
+        }else{
+            alert('Esta opción no está disponible en este momento.');
         }
     }
-    updated(changgeProps) {
-        if (changgeProps.has('_page')) {
-            initRouter(this.shadowRoot.querySelector('main'));
-        }
-    }
+
 }
 
     customElements.define('find-centers', FindCenters);
