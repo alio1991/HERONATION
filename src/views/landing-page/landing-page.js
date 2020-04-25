@@ -2,7 +2,6 @@ import { html, css, LitElement } from 'lit-element';
 import { initRouter } from '../../router';
 import { connect } from 'pwa-helpers';
 import { store } from './../../redux/store.js'
-import { setAppName } from './../../redux/actions/actions.js'
 import '../../components/main-header/main-header.js';
 
 
@@ -26,9 +25,6 @@ export class LandingPage extends connect(store) (LitElement) {
     return {
       _page: {
         type: String
-      },
-      appName: {
-        type: Object
       }
     };
   }
@@ -38,19 +34,10 @@ export class LandingPage extends connect(store) (LitElement) {
     this._page = '';
   }
 
-  stateChanged(state){
-    console.log('statechanged', state)
-    this.appName = state.appName;
-  }
   
   render() {
     return html`
     <main-header .companyName=${"HERO|NATION"} .userLogged=${false}></main-header>
-    <div style="background:red;cursor: pointer;margin-top:250px;" @click=${()=>{
-      this.appName = 'CORPORATION';
-      store.dispatch(setAppName(this.appName))
-    }
-      }>${this.appName}</div>
     <main></main>
     `;
   }
