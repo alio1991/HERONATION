@@ -12,6 +12,13 @@ export const setLocation = (location)=>{
   }
 }
 
+export const setCoordinates = (coordinates)=>{
+  return {
+    type: 'SET_COODINATES',
+    coordinates
+  }
+}
+
 export const setLogin = (login)=>{
   return {
     type: 'SET_LOGIN',
