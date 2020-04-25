@@ -1,8 +1,9 @@
 import { html, css, LitElement } from 'lit-element';
 import '../../styles.css';
-import { initRouter } from '../../router';
+import { connect } from 'pwa-helpers';
+import { store } from './../../redux/store.js'
 
-export class CentersLocation extends LitElement {
+export class CentersLocation extends connect(store) (LitElement) {
 
   static get styles() {
     return css`
@@ -18,25 +19,24 @@ export class CentersLocation extends LitElement {
   static get properties() {
     return {
         location: {
-            type: String
+            type: Object
         }
     };
   }
 
   constructor() {
     super();
-    this._page = '';
   }
 
-  // <nav>
-  //     <a href="/test-page">Test</a>
-  //     <a href="/testing-page">Testing</a>
-  // </nav>
+  stateChanged(state){
+    console.log('statechanged', state)
+    this.location = state.location;
+  }
 
   render() {
       
     return html`
-        <h1>${ this.location || 'CENTERS'}</h1>
+        <h1>${ this.location.stringLocation || 'CENTERS'}</h1>
         <a href="/">Return</a>
     `;
 

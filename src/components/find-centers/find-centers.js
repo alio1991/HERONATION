@@ -1,7 +1,9 @@
 import { html, css, LitElement } from 'lit-element';
-import { initRouter } from '../../router';
+import { connect } from 'pwa-helpers';
+import { store } from './../../redux/store.js'
+import { setLocation } from './../../redux/actions/actions.js'
 
-export class FindCenters extends LitElement {
+export class FindCenters extends connect(store)(LitElement) {
 
     static get styles() {
         return css`
@@ -26,19 +28,20 @@ export class FindCenters extends LitElement {
 
     static get properties() {
         return {
+          location:{
+            type: Object
+          }
         };
     }
 
     constructor() {
         super();
-        this._page = '';
     }
 
-    // <nav>
-    //     <a href="/test-page">Test</a>
-    //     <a href="/testing-page">Testing</a>
-    // </nav>
-
+    stateChanged(state){
+        console.log('statechanged', state)
+        this.location = state.location;
+      }
 
     render() {
 
@@ -52,9 +55,14 @@ export class FindCenters extends LitElement {
     `;
     }
 
+    dispatchLocationChange(){
+      store.dispatch(setLocation(this.location))
+    }
+    
     onDirectionChanges(ev) {
-        const inputValue = ev.target.parentElement.firstElementChild.value;
-        window.location.href  = "/centers";
+        this.location.stringLocation = ev.target.parentElement.firstElementChild.value;
+        this.dispatchLocationChange();
+                window.location.href  = "/centers";
     }
 
     getLocation() {
