@@ -62,7 +62,7 @@ export class FindCenters extends connect(store)(LitElement) {
     onDirectionChanges(ev) {
         this.location.stringLocation = ev.target.parentElement.firstElementChild.value;
         this.dispatchLocationChange();
-                window.location.href  = "/centers";
+                // window.location.href  = "/centers";
     }
 
     getLocation() {
@@ -70,7 +70,7 @@ export class FindCenters extends connect(store)(LitElement) {
             navigator.geolocation.getCurrentPosition(function (position) {
                 console.log(position);
             });
-            window.location.href  = "/centers";
+            // window.location.href  = "/centers";
         }else{
             alert('Esta opción no está disponible en este momento.');
         }

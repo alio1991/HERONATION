@@ -24,11 +24,15 @@ export const reducer = (state = initialStatus, action) => {
         appName: action.appName
       }
     case 'SET_LOCATION':
+      let newLocation = initialStatus.location;
+      if (typeof action.location === "string")
+        newLocation.stringLocation = action.location
+      else if (Object.hasOwnProperty(action.location, 'longitude') && Object.hasOwnProperty(action.location, 'latitude'))
+        [newLocation.coordinatesLocation.longitude, newLocation.coordinatesLocation.latitude] = action.location;
+      else newLocation = { ...state.location }
       return {
         ...state,
-        location: {
-          stringLocation: action.location.stringLocation
-        }
+        location: newLocation
       }
     case 'SET_LOGIN':
       let newLogin = initialStatus.loginStatus;
@@ -42,7 +46,7 @@ export const reducer = (state = initialStatus, action) => {
         ...state,
         loginStatus: { ...newLogin }
       }
-    default:
-      return state;
+      default:
+        return state;
   }
 }
