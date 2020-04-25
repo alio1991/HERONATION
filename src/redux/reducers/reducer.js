@@ -39,7 +39,7 @@ export const reducer = (state = initialStatus, action) => {
       }
 
     case 'SET_LOGIN':
-      let newLogin = initialStatus.loginStatus;
+      let newLogin = {...initialStatus.loginStatus};
       LOGIN_TYPE.forEach(login => {
         if (login === action.loginType && login !== 'NONE') {
           newLogin.status = true;
