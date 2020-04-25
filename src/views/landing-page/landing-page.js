@@ -42,8 +42,9 @@ export class LandingPage extends connect(store) (LitElement) {
     `;
   }
 
-  updated(changgeProps) {
-    if (changgeProps.has('_page')) {
+  
+  updated(changeProps) {
+    if (changeProps.has('_page')) {
       initRouter(this.shadowRoot.querySelector('main'));
     }
   }
