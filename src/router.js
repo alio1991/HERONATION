@@ -1,7 +1,7 @@
 import { Router } from '@vaadin/router';
 
 export const initRouter = node =>{
-    const router = new Router(node);
+    const router = new Router(node);    
     router.setRoutes([
         
         {
@@ -12,10 +12,10 @@ export const initRouter = node =>{
             }
         },
         {
-            path: '/testing-page',
-            component: 'testing-page',
+            path: '/centers',
+            component: 'centers-location',
             action: ()=>{
-                import( './views/testing-page/testing-page.js')
+                import( './views/centers-location/centers-location.js')
             }
         }
         
