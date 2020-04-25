@@ -18,7 +18,7 @@ export class CentersLocation extends connect(store) (LitElement) {
 
   static get properties() {
     return {
-        location: {
+        userLocation: {
             type: Object
         }
     };
@@ -29,14 +29,18 @@ export class CentersLocation extends connect(store) (LitElement) {
   }
 
   stateChanged(state){
-    console.log('statechanged', state)
-    this.location = state.location;
+    this.userLocation = state.location ? state.location : state.coordinates;
+    if(state.location){ //Tiro de dirección
+
+    }else{ //tiro de coordenadas
+
+    }
+
   }
 
   render() {
-      
     return html`
-        <h1>${ this.location.stringLocation || 'CENTERS'}</h1>
+        <h1>${ this.userLocation || 'CENTERS'}</h1>
         <a href="/">Return</a>
     `;
 
