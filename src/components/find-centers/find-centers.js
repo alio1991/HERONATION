@@ -7,8 +7,8 @@ import { Router } from '@vaadin/router';
 
 export class FindCenters extends connect(store)(LitElement) {
 
-    static get styles() {
-        return css`
+  static get styles() {
+    return css`
     :host {
         display: flex;
         flex-direction: column;
@@ -26,22 +26,22 @@ export class FindCenters extends connect(store)(LitElement) {
     }
 
     `;
-    }
+  }
 
-    static get properties() {
-        return {
-          
-        };
-    }
+  static get properties() {
+    return {
 
-    constructor() {
-        super();
-    }
+    };
+  }
+
+  constructor() {
+    super();
+  }
 
 
-    render() {
+  render() {
 
-        return html`
+    return html`
         <p>Indique una dirección para encontrar los centros cercanos</p>
         <div class="options">
             <input class="direction" type="text"/>
@@ -49,25 +49,25 @@ export class FindCenters extends connect(store)(LitElement) {
             <button type="button" class="map-icon" @click=${this.getLocation}>📌</button>
         </div>
     `;
-    }
+  }
 
-    
-    onDirectionChanges(ev) {
-        store.dispatch(setLocation(ev.target.parentElement.firstElementChild.value))
+
+  onDirectionChanges(ev) {
+    store.dispatch(setLocation(ev.target.parentElement.firstElementChild.value))
+    Router.go('/centers')
+  }
+
+  getLocation() {
+    if (navigator.geolocation) { //check if geolocation is available
+      navigator.geolocation.getCurrentPosition(function (position) {
+        store.dispatch(setCoordinates({ latitude: position.coords.latitude, longitude: position.coords.longitude }))
         Router.go('/centers')
+      });
+    } else {
+      alert('Esta opción no está disponible en este momento.');
     }
-
-    getLocation() {
-        if (navigator.geolocation) { //check if geolocation is available
-            navigator.geolocation.getCurrentPosition(function (position) {
-                store.dispatch(setCoordinates({latitude: position.coords.latitude, longitude: position.coords.longitude}))
-                Router.go('/centers')
-            });
-        }else{
-            alert('Esta opción no está disponible en este momento.');
-        }
-    }
+  }
 
 }
 
-    customElements.define('find-centers', FindCenters);
+customElements.define('find-centers', FindCenters);
