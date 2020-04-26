@@ -51,7 +51,6 @@ export class NearbyCenters extends LitElement {
   render() {    
     return html`
         <div id="map">
-
         </div>
         <div class="centers-list">
           <h3>Centros Cercanos</h3>
@@ -66,11 +65,9 @@ export class NearbyCenters extends LitElement {
   updated(changeProps) {
     if (changeProps.has('userLocation')) {
       if(this.userLocation && this.userLocation.latitude){
-        console.log('DONE');
         this.showMap();
       }else{
-        console.log('NO SE HAN ENCONTRADO COORDENADAS');
-        
+        alert('Ubicación no detectada');
       }
     }
   }
