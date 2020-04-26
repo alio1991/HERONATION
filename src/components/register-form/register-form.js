@@ -52,14 +52,18 @@ export class RegisterForm extends LitElement {
   }
 
   tryRegister(){
+    let status = true;
     [].slice.call(this.shadowRoot.querySelectorAll('.form-field')).map(field =>{
       if(field.value){
         this.registerObject[field.name] = field.value;
       }else{
-         alert(`El campo ${field.name} es obligatorio.`);
+        status= false;
+        alert(`El campo ${field.name} es obligatorio.`);
       }
     });
-    Router.go(this.loginType === 'CITIZEN' ? '/features' : '/management');
+    if(status){
+      Router.go(this.loginType === 'CITIZEN' ? '/features' : '/management');
+    }
   }
 }
 
