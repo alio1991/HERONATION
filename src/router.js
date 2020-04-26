@@ -17,6 +17,13 @@ export const initRouter = node => {
       action: () => {
         import('./views/centers-location/centers-location.js')
       }
+    },
+    {
+      path: '/access',
+      component: 'access-view',
+      action: () => {
+        import('./views/access-view/access-view.js')
+      }
     }
 
   ])
