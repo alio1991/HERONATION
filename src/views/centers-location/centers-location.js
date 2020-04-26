@@ -9,25 +9,22 @@ export class CentersLocation extends connect(store)(LitElement) {
   static get styles() {
     return css`
     :host {
+      display: flex;
       position: absolute;
       width: 100%;
       height: 100%;
       padding-top: var(--header-height);
     }
-    .centers-container{
-      display: flex;
-      width: 100%;
-      height:70%;
-      margin-left: 10%;
+    
+    nearby-centers{
+      width: 80%;
     }
-    #map{
-      width: 50%;
-      height: 100%;
 
-    }
-    .centers-list{
-      width: 50%;
-      height: 100%;
+    .filters{
+      display: flex;
+      flex-direction: column;
+      width: 20%;
+      background-color: rgb(var(--dark-color),0.7);
     }
     `;
   }
@@ -76,8 +73,13 @@ export class CentersLocation extends connect(store)(LitElement) {
 
   render() {
     return html`
-        <h1>${ this.userLocation || 'CENTERS'}</h1>
         <nearby-centers .centersLocation=${this.centersLocation} .userLocation =${this.userLocation}></nearby-centers>
+        <div class="filters">
+          <div class="filter-option"><input type="checkbox"/><label>Opción A</label></div>
+          <div class="filter-option"><input type="checkbox"/><label>Opción B</label></div>
+          <div class="filter-option"><input type="checkbox"/><label>Opción C</label></div>
+          <div class="filter-option"><input type="checkbox"/><label>Opción D</label></div>
+        </div>
     `;
   }
 
