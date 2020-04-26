@@ -64,11 +64,12 @@ export class AccessView extends connect(store)(LitElement) {
   }
   
   showBackButton(){
-    return this.userSelection? html`<button @click="${()=>this.setUserSelection('')}">Back</button>`: html``;
+    return this.userSelection ? html`<button @click="${()=>this.setUserSelection('')}">Back</button>`: html``;
   }
     
   setUserSelection(selection){
     this.userSelection=selection;
+    // Router.go('/'+selection);
   }
 }
 

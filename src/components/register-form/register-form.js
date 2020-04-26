@@ -1,5 +1,5 @@
 import { html, css, LitElement } from 'lit-element';
-
+import { Router } from '@vaadin/router';
 
 export class RegisterForm extends LitElement {
 
@@ -59,6 +59,7 @@ export class RegisterForm extends LitElement {
          alert(`El campo ${field.name} es obligatorio.`);
       }
     });
+    Router.go(this.loginType === 'CITIZEN' ? '/features' : '/management');
   }
 }
 
