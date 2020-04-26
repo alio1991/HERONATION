@@ -2,6 +2,7 @@ import { html, css, LitElement } from 'lit-element';
 import '../../styles.css';
 import { connect } from 'pwa-helpers';
 import { store } from './../../redux/store.js'
+import '../../components/nearby-centers/nearby-centers.js';
 
 export class CentersLocation extends connect(store)(LitElement) {
 
@@ -35,12 +36,32 @@ export class CentersLocation extends connect(store)(LitElement) {
     return {
       userLocation: {
         type: Object
+      },
+      centersLocation: {
+        type: Array
       }
     };
   }
 
   constructor() {
     super();
+    this.centersLocation = [
+      {
+        name:'Ejemplo1',
+        location: 'Calle pepino 22',
+        avoids:['Perecederos']
+      },
+      {
+        name:'Ejemplo2',
+        location: 'Calle sinsajo 50',
+        avoids:['No perecederos']
+      },
+      {
+        name:'Ejemplo3',
+        location: 'Calle lerele 10',
+        avoids:['Juguetes','Muebles','Productos de limpieza']
+      },
+    ];
   }
 
   stateChanged(state) {
@@ -56,34 +77,8 @@ export class CentersLocation extends connect(store)(LitElement) {
   render() {
     return html`
         <h1>${ this.userLocation || 'CENTERS'}</h1>
-        <div class="centers-container">
-        <div id="map">
-
-          <a href="/">Return</a>
-        </div>
-        <div class="centers-list">
-          <h3>LISTA</h3>
-        </div>
-        </div>
+        <nearby-centers .centersLocation=${this.centersLocation} .userLocation =${this.userLocation}></nearby-centers>
     `;
-  }
-
-  updated(changeProps) {
-    if (changeProps.has('userLocation')) {
-      this.showMap();
-    }
-  }
-
-  showMap() {
-    if (this.userLocation.latitude) {
-      let map = new google.maps.Map(
-        this.shadowRoot.querySelector('#map'), {
-        zoom: 15,
-        center: { lat: this.userLocation.latitude, lng: this.userLocation.longitude }
-      }
-      );
-      let marker = new google.maps.Marker({ position: { lat: this.userLocation.latitude, lng: this.userLocation.longitude }, map: map })
-    }
   }
 
 }
