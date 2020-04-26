@@ -27,6 +27,7 @@ body {
   background-position: top left;
   background-size: 100% auto;
   background-color: var(--base-color);
+  background-repeat: no-repeat;
   height: 100%;
 }
 

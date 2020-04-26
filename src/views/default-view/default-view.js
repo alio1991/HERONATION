@@ -40,6 +40,10 @@ export class DefaultView extends connect(store) (LitElement) {
       background-color: rgba(var(--green-color), 0.5);
     }
 
+    .selector-nothovered{
+      background-color: rgba(var(--base-color), 0.5);
+    }
+
     .selector-expanded{
       animation-duration: 1s;
       animation-name: extendDiv;
@@ -74,13 +78,18 @@ export class DefaultView extends connect(store) (LitElement) {
 
   constructor() {
     super();
-    // if(this.shadowRoot.querySelector('.selector')){
-    //   this.shadowRoot.querySelector('.selector').addEventListener('mouseover',(e)=>{
-    //     debugger;
-    //   });
-    // }
   }
 
+  // firstUpdated() {
+  //   if(this.shadowRoot.querySelector('.selector-citizen')){
+  //     this.shadowRoot.querySelector('.selector-citizen').addEventListener('mouseenter', this.hoverCitizen);
+  //     this.shadowRoot.querySelector('.selector-citizen').addEventListener('mouseleave', this.leaveHover);
+  //   }
+  //   if(this.shadowRoot.querySelector('.selector-corporation')){
+  //     this.shadowRoot.querySelector('.selector-corporation').addEventListener('mouseenter', this.hoverCorporation);
+  //     this.shadowRoot.querySelector('.selector-corporation').addEventListener('mouseleave', this.leaveHover);
+  //   }
+  // }
 
   render() {
     return html`
@@ -92,6 +101,16 @@ export class DefaultView extends connect(store) (LitElement) {
         </div>
     `;
   }
+
+  // hoverCitizen(){
+  //   if(this.shadowRoot.querySelector('.selector-corporation'))
+  //     this.shadowRoot.querySelector('.selector-corporation').classList.add('selector-nothovered')
+  // }
+
+  // hoverCorporation(){
+  //   if(this.shadowRoot.querySelector('.selector-citizen'))
+  //     this.shadowRoot.querySelector('.selector-citizen').classList.add('selector-nothovered')
+  // }
 
   selectUserType(userType, expanded, colapsed){
     store.dispatch(setLogin(userType));
