@@ -61,7 +61,6 @@ export class LandingPage extends connect(store) (LitElement) {
       initRouter(this.shadowRoot.querySelector('main'));
     }
     if(changeProps.has('loginType')){
-      console.log(changeProps)
       this.getBackgroundColor();
     }
   }
