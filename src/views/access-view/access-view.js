@@ -22,12 +22,17 @@ export class AccessView extends connect(store)(LitElement) {
     return {
       profileSelected: {
         type: String
+      },
+      userSelection:{
+        type: String
       }
+
     };
   }
 
   constructor() {
     super();
+    this.userSelection='';
   }
 
   stateChanged(state) {
@@ -38,14 +43,32 @@ export class AccessView extends connect(store)(LitElement) {
     return html`
     <div class="select-authentication-container">
       <div>Log in as a ${this.profileSelected}</div>
-      <login-authentication .loginType=${this.profileSelected}></login-authentication>
+      ${this.renderAccess()}
+      ${this.showBackButton()}
     </div>
     `;
     }
     return html``;
-
   }
 
+  renderAccess(){
+    if(this.userSelection){
+      return this.userSelection === 'login'? html`<login-authentication .loginType=${this.profileSelected}></login-authentication>` : html`Register`;
+    }else{
+      return html`
+        <button @click="${()=>this.setUserSelection('login')}">Login</button>
+        <button @click="${()=>this.setUserSelection('register')}">Register</button>
+      `;
+    }
+  }
+  
+  showBackButton(){
+    return this.userSelection? html`<button @click="${()=>this.setUserSelection('')}">Back</button>`: html``;
+  }
+    
+  setUserSelection(selection){
+    this.userSelection=selection;
+  }
 }
 
 customElements.define('access-view', AccessView);
