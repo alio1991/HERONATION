@@ -9,14 +9,14 @@ export class DefaultView extends connect(store) (LitElement) {
   static get styles() {
     return css`
     :host {
-      width: 120%;
+      width: 140%;
       height: 100%;
       display: flex;
-      margin-left: -10%;
+      margin-left: -20%;
     }
     
     .selector{
-      width: 60%;
+      width: 70%;
       height: 100%;
       display:flex;
       align-items: center;
@@ -27,38 +27,38 @@ export class DefaultView extends connect(store) (LitElement) {
     }
     .selector-citizen{
       transition: background-color ease-in-out 0.8s;
-      background-color: rgba(var(--purple-color), 0.3);
+      background-color: rgba(var(--purple-color), 0.25);
     }
     .selector-corporation{
       transition: background-color ease-in-out 0.8s;
-      background-color: rgba(var(--green-color), 0.3);
+      background-color: rgba(var(--green-color), 0.25);
     }
     .selector-citizen:hover{
-      background-color: rgba(var(--purple-color), 0.6);
+      background-color: rgba(var(--purple-color), 0.5);
     }
     .selector-corporation:hover{
-      background-color: rgba(var(--green-color), 0.6);
+      background-color: rgba(var(--green-color), 0.5);
     }
 
     .selector-expanded{
-      animation-duration: 1.5s;
+      animation-duration: 1s;
       animation-name: extendDiv;
       animation-fill-mode: forwards;
     }
 
     .selector-colapsed{
-      animation-duration: 1.5s;
+      animation-duration: 1s;
       animation-name: decreaseDiv;
       animation-fill-mode: forwards;
     }
 
     @keyframes extendDiv{
-      from {width: 60%;}
-      to {width: 120%;}
+      from {width: 70%;}
+      to {width: 140%;}
     }
 
     @keyframes decreaseDiv{
-      from {width: 60%;}
+      from {width: 70%;}
       to {width: 0%;}
     }
     `;
@@ -74,12 +74,17 @@ export class DefaultView extends connect(store) (LitElement) {
 
   constructor() {
     super();
+    // if(this.shadowRoot.querySelector('.selector')){
+    //   this.shadowRoot.querySelector('.selector').addEventListener('mouseover',(e)=>{
+    //     debugger;
+    //   });
+    // }
   }
 
 
   render() {
     return html`
-        <div class="selector selector-citizen" @click="${()=>{this.selectUserType('CITIZEN', 'selector-citizen', 'selector-corporation')}}">
+        <div class="selector selector-citizen"  @click="${()=>{this.selectUserType('CITIZEN', 'selector-citizen', 'selector-corporation')}}">
           <h1>Citizen</h1>  
         </div>
         <div class="selector selector-corporation" @click="${()=>{this.selectUserType('CORPORATION', 'selector-corporation', 'selector-citizen')}}">
@@ -92,6 +97,8 @@ export class DefaultView extends connect(store) (LitElement) {
     store.dispatch(setLogin(userType));
     this.shadowRoot.querySelector(`.${expanded}`).classList.add('selector-expanded');
     this.shadowRoot.querySelector(`.${colapsed}`).classList.add('selector-colapsed');
+    setTimeout(()=>Router.go('/access'), 1500);
+    
   }
 }
 

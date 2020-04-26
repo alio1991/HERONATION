@@ -1,1 +1,2 @@
-export const LOGIN_TYPE = ['NONE', 'CORPORATION', 'CITIZEN'];
+export const LOGIN_TYPE = [{name: 'NONE', className: 'none-background'},{name: 'CORPORATION', className: 'corporation-background'},{name: 'CITIZEN', className: 'citizen-background'}];
+export const EMAIL_REG = new RegExp(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,'g');
