@@ -87,42 +87,9 @@ export class NearbyCenters extends LitElement {
 
       //Centrar en un punto el mapa
       //map.setCenter(results[0].geometry.location);
-
-      //Traducción Dirección => Coordenadas
-      // this.addressToCordinates('Calle Don Desi 22')
     }
-    
   }
 
-  addressToCordinates(address){
-    // fetch('https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyCM-Ig8uBc3tefkBn4_GKXAdkmr9NLrqDY')
-    // .then(response => response.json()).then(elem => console.log(elem));
-    
-    let geocoder = new google.maps.Geocoder();
-
-    geocoder.geocode({ 'address': address }, function (results, status) {
-      if (status === 'OK') {
-        // console.log({latitude: coordinates.lat(),longitude: coordinates.lng()});
-        console.log(results[0].geometry.location);
-        
-        // var resultados = results[0].geometry.location,
-        //   resultados_lat = resultados.lat(),
-        //   resultados_long = resultados.lng();
-
-      
-      } else {
-        var mensajeError = "";
-        if (status === "ZERO_RESULTS") {
-          mensajeError = "No hubo resultados para la dirección ingresada.";
-        } else if (status === "OVER_QUERY_LIMIT" || status === "REQUEST_DENIED" || status === "UNKNOWN_ERROR") {
-          mensajeError = "Error general del mapa.";
-        } else if (status === "INVALID_REQUEST") {
-          mensajeError = "Error de la web. Contacte con Name Agency.";
-        }
-        console.log(mensajeError);
-      }
-    });
-  }
 }
 
 customElements.define('nearby-centers', NearbyCenters);
