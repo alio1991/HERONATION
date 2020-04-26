@@ -3,6 +3,7 @@ import { connect } from 'pwa-helpers';
 import { store } from './../../redux/store.js';
 import { Router } from '@vaadin/router';
 import '../../components/login-authentication/login-authentication.js'
+import '../../components/register-form/register-form.js'
 
 export class AccessView extends connect(store)(LitElement) {
   static get styles() {
@@ -53,7 +54,7 @@ export class AccessView extends connect(store)(LitElement) {
 
   renderAccess(){
     if(this.userSelection){
-      return this.userSelection === 'login'? html`<login-authentication .loginType=${this.profileSelected}></login-authentication>` : html`Register`;
+      return this.userSelection === 'login'? html`<login-authentication .loginType=${this.profileSelected}></login-authentication>` : html`<register-form .loginType=${this.profileSelected}></register-form>`;
     }else{
       return html`
         <button @click="${()=>this.setUserSelection('login')}">Login</button>
