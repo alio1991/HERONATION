@@ -1,1 +1,2 @@
 export const LOGIN_TYPE = ['NONE', 'CORPORATION', 'CITIZEN'];
+export const EMAIL_REG = new RegExp(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,'g');
