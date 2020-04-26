@@ -78,6 +78,11 @@ export class DefaultView extends connect(store) (LitElement) {
 
   constructor() {
     super();
+    // if(this.shadowRoot.querySelector('.selector')){
+    //   this.shadowRoot.querySelector('.selector').addEventListener('mouseover',(e)=>{
+    //     debugger;
+    //   });
+    // }
   }
 
   // firstUpdated() {
