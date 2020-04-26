@@ -19,9 +19,9 @@ export const setCoordinates = (coordinates)=>{
   }
 }
 
-export const setLogin = (login)=>{
+export const setLogin = (loginType)=>{
   return {
     type: 'SET_LOGIN',
-    login
+    loginType
   }
 }
