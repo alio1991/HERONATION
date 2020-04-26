@@ -19,34 +19,46 @@ export class RegisterForm extends LitElement {
 
   static get properties() {
     return {
-      loginType: {
-      }
+      loginType: String,
+      registerObject: Object
     };
   }
 
   constructor() {
     super();
+    this.registerObject = {};
   }
 
 
   render() {
     return html`
       <div id="form">
-        <div class="form-field"><label>Email: </label><input name="mail" type="text"/></div>
-        <div class="form-field"><label>Contraseña: </label><input name="password" type="password"></div>
+        <div><label>Email: </label><input class="form-field" name="mail" type="text"/></div>
+        <div><label>Contraseña: </label><input class="form-field" name="password" type="password"></div>
         ${this.getOwnFields()}
-        <div class="form-field"><label>Teléfono: </label><input name="telefono" type="tel"/></div>
-        <div class="form-field"><label>Calle: </label><input name="calle" type="text"/></div>
-        <div class="form-field"><label>Código Postal: </label><input name="codigo-postal" type="text"/></div>
-        <div class="form-field"><label>Provincia: </label><input name="provincia" type="text"/></div>
+        <div><label>Teléfono: </label><input class="form-field" name="telefono" type="tel"/></div>
+        <div><label>Calle: </label><input class="form-field" name="calle" type="text"/></div>
+        <div><label>Código Postal: </label><input class="form-field" name="codigo-postal" type="text"/></div>
+        <div><label>Provincia: </label><input class="form-field" name="provincia" type="text"/></div>
       </div>
+      <button @click=${() => this.tryRegister()} type="button">Register</button>
     `;
   }
 
   getOwnFields(){    
     return this.loginType === 'CITIZEN' ? 
-    html`<div class="form-field"><label>CIF: </label><input name="CIF" type="text"/></div>` :  
-    html`<div class="form-field"><label>Apellidos: </label><input name="apellidos" type="text"/></div>`;
+    html`<div><label>Apellidos: </label><input class="form-field" name="apellidos" type="text"/></div>` : 
+    html`<div><label>CIF: </label><input class="form-field" name="CIF" type="text"/></div>`;
+  }
+
+  tryRegister(){
+    [].slice.call(this.shadowRoot.querySelectorAll('.form-field')).map(field =>{
+      if(field.value){
+        this.registerObject[field.name] = field.value;
+      }else{
+         alert(`El campo ${field.name} es obligatorio.`);
+      }
+    });
   }
 }
 
