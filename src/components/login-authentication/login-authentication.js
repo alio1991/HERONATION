@@ -27,7 +27,7 @@ export class LoginAuthentication extends LitElement {
     .login-container{
       display: relative;
       width: 100%;
-      height: 15em;
+      height: fit-content;
       flex-direction: column;
       justify-items: center;
       align-items: center;
@@ -87,7 +87,6 @@ export class LoginAuthentication extends LitElement {
       float: right;
       align-self: flex-end;
       font-size: 1em;
-
     }
     `;
   }

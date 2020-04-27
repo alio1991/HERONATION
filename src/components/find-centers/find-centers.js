@@ -16,11 +16,26 @@ export class FindCenters extends connect(store)(LitElement) {
         justify-content: center;
     }
 
-    input{
-        border-radius: 15px;
-        width: 90%;
+    p{
+      color: rgba(var(--base-color), 1);
     }
 
+    input{
+      border: 0px transparent;
+      border-radius: 3px;
+      font-size: 1em;
+    }
+    button{
+      border: 1px solid rgba(var(--purple-color), .5);
+      color: rgb(var(--purple-color));
+      background-color: rgba(var(--base-color), 1);
+      border-radius: 5px;
+      font-weight: 700;
+      float: right;
+      align-self: flex-end;
+      font-size: 1em;
+      margin-left: 5px;
+    }
     .options{
         display: flex;
     }
