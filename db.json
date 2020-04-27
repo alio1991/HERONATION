@@ -1,0 +1,23 @@
+{
+  "usuario-empresa" : 
+  {
+    "nombre":"RM.CORP",
+    "email":"rmc@gmail.com",
+    "telefono":"689571257",
+    "contrasena":"*******",
+    "direccion":"Calle el misterio 99",
+    "rol":"CORPORATION",
+    "preferenciasCategoriaProductos": []
+  },
+  "usuario-donante":
+  {
+    "nombre":"Juan",
+    "apellidos":"Pérez",
+    "email":"jp@gmail.com",
+    "telefono":"698598645",
+    "contrasena":"***********",
+    "direccion":"Calle del Pepe 40",
+    "rol":"CITIZEN",
+    "peticionUsuarioDonantes": []
+  }
+}
