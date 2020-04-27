@@ -1,7 +1,7 @@
 import { html, css, LitElement } from 'lit-element';
 import { connect } from 'pwa-helpers';
 import { store } from './../../redux/store.js';
-import { setLogin } from './../../redux/actions/actions.js';
+import { setUserType } from './../../redux/actions/actions.js';
 import { Router } from '@vaadin/router';
 
 export class DefaultView extends connect(store)(LitElement) {
@@ -121,7 +121,7 @@ export class DefaultView extends connect(store)(LitElement) {
   // }
 
   selectUserType(userType, expanded, colapsed){
-    store.dispatch(setLogin(userType));
+    store.dispatch(setUserType(userType));
     this.shadowRoot.querySelector(`.${expanded}`).classList.add('selector-expanded');
     this.shadowRoot.querySelector(`.${colapsed}`).classList.add('selector-colapsed');
     setTimeout(() => Router.go('/access'), 1500);

@@ -100,7 +100,7 @@ export class UserLogged extends connect(store)(LitElement) {
   logout(){
     this.manageInfoVisibility();
     store.dispatch(setLogout());
-    
+    Router.go('/');
   }
 
   hideInfo(){

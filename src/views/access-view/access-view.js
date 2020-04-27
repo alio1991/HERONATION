@@ -91,7 +91,7 @@ export class AccessView extends connect(store)(LitElement) {
   }
 
   stateChanged(state) {
-    this.profileSelected = state.loginStatus.loginType;
+    this.profileSelected = state.userType;
   }
 
   

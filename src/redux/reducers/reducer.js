@@ -4,9 +4,10 @@ const initialStatus = {
   appName: 'Name',
   location: '',
   coordinates: null,
+  userType: '',
   loginStatus:
   {
-    status: true,
+    status: false,
     loginType: 'CITIZEN'
     // loginType: 'CORPORATION'
   },
@@ -75,6 +76,13 @@ export const reducer = (state = initialStatus, action) => {
         userInfo: { ...newUserInfo }
       }
 
+      case 'SET_USER_TYPE':
+      initialStatus.userType = action.user;      
+      return {
+        ...state,
+        userType: action.user
+      }
+      
 
     default:
       return state;
