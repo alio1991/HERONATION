@@ -25,3 +25,8 @@ export const setLogin = (loginType)=>{
     loginType
   }
 }
+
+export const setLogout = ()=>{
+  return {
+    type: 'SET_LOGOUT'  }
+}

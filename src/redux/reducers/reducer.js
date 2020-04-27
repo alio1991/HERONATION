@@ -6,8 +6,9 @@ const initialStatus = {
   coordinates: null,
   loginStatus:
   {
-    status: false,
-    loginType: 'NONE'
+    status: true,
+    loginType: 'CITIZEN'
+    // loginType: 'CORPORATION'
   }
 };
 
@@ -50,6 +51,19 @@ export const reducer = (state = initialStatus, action) => {
         ...state,
         loginStatus: { ...newLogin }
       }
+      
+
+    case 'SET_LOGOUT':
+      let copyLogin = {...initialStatus.loginStatus};
+      LOGIN_TYPE.forEach(login => {
+        copyLogin.status = false;
+        copyLogin.loginType = 'NONE';
+      })
+      return {
+        ...state,
+        loginStatus: { ...copyLogin }
+    }
+
     default:
       return state;
   }
