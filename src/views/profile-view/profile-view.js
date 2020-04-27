@@ -1,5 +1,6 @@
 import { html, css, LitElement } from 'lit-element';
-
+import { store } from './../../redux/store.js';
+import '../../components/profile-edit/profile-edit.js';
 export class ProfileView extends LitElement {
 
   static get styles() {
@@ -16,6 +17,7 @@ export class ProfileView extends LitElement {
 
   static get properties() {
     return {
+      userData: Object
     };
   }
 
@@ -23,10 +25,13 @@ export class ProfileView extends LitElement {
     super();
   }
 
+  firstUpdated() {
+    this.userData = store.getState().userInfo
+  }
 
   render() {
     return html`
-    <h1>PROFILE</h1>
+    <profile-edit .userData=${this.userData}></profile-edit>
     `;
   }
 
