@@ -50,7 +50,7 @@ export class ProfileEdit extends LitElement {
       })
     }
     </div>
-    <button @click=${this.saveData} type="button">Guardar</button>
+    <button type="button" @click=${this.saveData} >Guardar</button>
     `
   }
 
