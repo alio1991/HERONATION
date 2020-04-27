@@ -24,7 +24,21 @@ export const initRouter = node => {
       action: () => {
         import('./views/access-view/access-view.js')
       }
-    }
-
+    },
+    {
+      path: '/features',
+      component: 'features-view',
+      action: () => {
+        import('./views/features-view/features-view.js')
+      }
+    },
+    // {
+    //   path: '/management',
+    //   component: 'management-view',
+    //   action: () => {
+    //     import('./views/management-view/management-view.js')
+    //   }
+    // }
+    
   ])
 }
