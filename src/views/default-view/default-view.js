@@ -1,10 +1,10 @@
 import { html, css, LitElement } from 'lit-element';
 import { connect } from 'pwa-helpers';
 import { store } from './../../redux/store.js';
-import { setLogin } from './../../redux/actions/actions.js';
+import { setLogin, getLogin } from './../../redux/actions/actions.js';
 import { Router } from '@vaadin/router';
 
-export class DefaultView extends connect(store) (LitElement) {
+export class DefaultView extends connect(store)(LitElement) {
 
   static get styles() {
     return css`
@@ -74,31 +74,34 @@ export class DefaultView extends connect(store) (LitElement) {
 
   constructor() {
     super();
-    // if(this.shadowRoot.querySelector('.selector')){
-    //   this.shadowRoot.querySelector('.selector').addEventListener('mouseover',(e)=>{
-    //     debugger;
-    //   });
-    // }
   }
 
 
   render() {
-    return html`
-        <div class="selector selector-citizen"  @click="${()=>{this.selectUserType('CITIZEN', 'selector-citizen', 'selector-corporation')}}">
+    if (store.getState().loginStatus.status) {
+      if (store.getState().loginStatus.loginType === 'CITIZEN') {
+        Router.go('/features')
+      } else {
+        Router.go('/management')
+      }
+    } else {
+      return html`
+        <div class="selector selector-citizen"  @click="${() => { this.selectUserType('CITIZEN', 'selector-citizen', 'selector-corporation') }}">
           <h1>Citizen</h1>  
         </div>
-        <div class="selector selector-corporation" @click="${()=>{this.selectUserType('CORPORATION', 'selector-corporation', 'selector-citizen')}}">
+        <div class="selector selector-corporation" @click="${() => { this.selectUserType('CORPORATION', 'selector-corporation', 'selector-citizen') }}">
           <h1>Corporation</h1>  
         </div>
-    `;
+      `;
+    }
   }
 
-  selectUserType(userType, expanded, colapsed){
+  selectUserType(userType, expanded, colapsed) {
     store.dispatch(setLogin(userType));
     this.shadowRoot.querySelector(`.${expanded}`).classList.add('selector-expanded');
     this.shadowRoot.querySelector(`.${colapsed}`).classList.add('selector-colapsed');
-    setTimeout(()=>Router.go('/access'), 1500);
-    
+    setTimeout(() => Router.go('/access'), 1500);
+
   }
 }
 
