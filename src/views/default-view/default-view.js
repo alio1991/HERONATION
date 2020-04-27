@@ -1,7 +1,7 @@
 import { html, css, LitElement } from 'lit-element';
 import { connect } from 'pwa-helpers';
 import { store } from './../../redux/store.js';
-import { setLogin, getLogin } from './../../redux/actions/actions.js';
+import { setLogin } from './../../redux/actions/actions.js';
 import { Router } from '@vaadin/router';
 
 export class DefaultView extends connect(store)(LitElement) {
