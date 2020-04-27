@@ -1,5 +1,7 @@
 import { html, css, LitElement } from 'lit-element';
 import { EMAIL_REG } from '../../assets/data/data.js'
+import { setLogin } from './../../redux/actions/actions.js';
+import { store } from './../../redux/store.js';
 
 export class LoginAuthentication extends LitElement {
   static get properties() {
@@ -58,8 +60,8 @@ export class LoginAuthentication extends LitElement {
           <input type="password" name="password" id="password" placeholder="Insert Password" aria-label="Insert your password" @keyup="${this.setPassword}" required>
           ${this.errorMessages}
         </div>
-        <button ?disabled=${this.isValidLogin} @click="${this._submitValidation}">Send</button>
       </form>
+      <button ?disabled=${this.isValidLogin} @click="${this._submitValidation}">Send</button>
     </div>
     `;
   }
@@ -84,6 +86,10 @@ export class LoginAuthentication extends LitElement {
     if(this.isFormValid===0){
       //make submit
     }
+    console.log(this.loginType);
+    // debugger;
+    store.dispatch(setLogin(this.loginType));
+
   }
 }
 customElements.define('login-authentication', LoginAuthentication);
