@@ -11,7 +11,7 @@ export class AccessView extends connect(store)(LitElement) {
     .select-authentication-container{
       display: flex;
       flex-direction: column;
-      width: 50%;
+      width: 70%;
       margin: 8% auto;
       align-items: center;
     }
@@ -23,7 +23,7 @@ export class AccessView extends connect(store)(LitElement) {
     }
 
     .button-container{
-      width: 60%;
+      width: 40%;
       display: flex;
       flex-direction: row;
       justify-content:center;
@@ -34,6 +34,7 @@ export class AccessView extends connect(store)(LitElement) {
     
     .button{
       transform: skewX(-18deg);
+      width: 50%;
       height: 100%;
       color: rgba(var(--base-color), 1);
       font-weight: 700;
@@ -100,9 +101,7 @@ export class AccessView extends connect(store)(LitElement) {
       return html`
     <div class="select-authentication-container">
     <h1>${this.profileSelected}</h1>
-      <div class="button-container">
         ${this.renderAccess()}
-      </div>
       ${this.showBackButton()}
     </div>
     `;
@@ -117,8 +116,10 @@ export class AccessView extends connect(store)(LitElement) {
       : html`<register-form .loginType=${this.profileSelected}></register-form>`;
     } else {
       return html`
-      <div class="button button-citizen" tabindex="0" role="button" @click="${() => this.setUserSelection('login')}">Login</div>
-      <div class="button button-corporation" tabindex="0" role="button" @click="${() => this.setUserSelection('register')}">Register</div>
+      <div class="button-container">
+        <div class="button button-citizen" tabindex="0" role="button" @click="${() => this.setUserSelection('login')}">Login</div>
+        <div class="button button-corporation" tabindex="0" role="button" @click="${() => this.setUserSelection('register')}">Register</div>
+      </div>
         
       `;
     }
