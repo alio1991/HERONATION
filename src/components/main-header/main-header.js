@@ -1,19 +1,24 @@
 import { html, css, LitElement } from 'lit-element';
 import { initRouter } from '../../router';
+import { connect } from 'pwa-helpers';
+import { store } from './../../redux/store.js';
 import '../../styles.css';
 import '../find-centers/find-centers.js';
-import '../logged-user/logged-user.js';
+import '../user-logged/user-logged.js';
 
-export class MainHeader extends LitElement {
+export class MainHeader extends connect(store)(LitElement) {
 
   static get styles() {
     return css`
     :host {
+      --margin-borders: 15px;
       width: 100%;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       height: var(--header-height);
-      border-bottom: 2px solid black;padding: 5px;
+      border-bottom: 2px solid black;
+      padding: var(--margin-borders);
       box-sizing: border-box;
       position: absolute;
       top: 0;
@@ -34,9 +39,11 @@ export class MainHeader extends LitElement {
 
     .user-content{
       display: flex;
-      justify-content: center;
+      height: 100%;
+      justify-content: flex-end;
       flex-grow: 3;
-      min-width: fit-content;
+      width: fit-content;
+      margin-right: var(--margin-borders);
     }
 
     `;
@@ -56,15 +63,19 @@ export class MainHeader extends LitElement {
   constructor() {
     super();
     this._page = '';
+    this.userLogged = store.getState().loginStatus.status ? store.getState().loginStatus.loginType : '';
   }
 
-  // <nav>
-  //     <a href="/test-page">Test</a>
-  //     <a href="/testing-page">Testing</a>
-  // </nav>
+  stateChanged(state) {
+    this.userLogged = state.loginStatus.status ? store.getState().loginStatus.loginType : '';
+  }
 
   render() {
-    const findComponent = this.userLogged ? html`<logged-user></logged-user>` : html`<find-centers></find-centers>`;
+    const userType = store.getState().loginStatus.loginType;
+    const findComponent = store.getState().loginStatus.status
+      ? html`<user-logged .userType=${userType}></user-logged>`
+      : html`<find-centers></find-centers>`;
+
     return html`
         <div class="logo-name">
         <a href="/"><h1>${this.companyName}</h1></a>
