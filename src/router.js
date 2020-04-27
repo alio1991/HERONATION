@@ -38,6 +38,13 @@ export const initRouter = node => {
       action: () => {
         import('./views/management-view/management-view.js')
       }
+    },
+    {
+      path: '/profile',
+      component: 'profile-view',
+      action: () => {
+        import('./views/profile-view/profile-view.js')
+      }
     }
     
   ])
