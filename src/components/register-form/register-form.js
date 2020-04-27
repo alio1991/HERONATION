@@ -33,13 +33,13 @@ export class RegisterForm extends LitElement {
   render() {
     return html`
       <div id="form">
-        <div><label>Email: </label><input class="form-field" name="mail" type="text"/></div>
-        <div><label>Contraseña: </label><input class="form-field" name="password" type="password"></div>
+        <div><label>Email: </label><input class="form-field" aria-label="Insert your email" name="mail" type="text" required/></div>
+        <div><label>Contraseña: </label><input class="form-field" aria-label="Insert a password" name="password" type="password" required></div>
         ${this.getOwnFields()}
-        <div><label>Teléfono: </label><input class="form-field" name="telefono" type="tel"/></div>
-        <div><label>Calle: </label><input class="form-field" name="calle" type="text"/></div>
-        <div><label>Código Postal: </label><input class="form-field" name="codigo-postal" type="text"/></div>
-        <div><label>Provincia: </label><input class="form-field" name="provincia" type="text"/></div>
+        <div><label>Teléfono: </label><input class="form-field" aria-label="Insert your Phone" name="telefono" type="tel" required/></div>
+        <div><label>Calle: </label><input class="form-field" aria-label="Insert your street" name="calle" type="text" required/></div>
+        <div><label>Código Postal: </label><input class="form-field" aria-label="Insert your postal code" name="codigo-postal" type="text" required/></div>
+        <div><label>Provincia: </label><input class="form-field" aria-label="Insert your province" name="provincia" type="text" required/></div>
       </div>
       <button @click=${() => this.tryRegister()} type="button">Register</button>
     `;
@@ -47,8 +47,8 @@ export class RegisterForm extends LitElement {
 
   getOwnFields(){    
     return this.loginType === 'CITIZEN' ? 
-    html`<div><label>Apellidos: </label><input class="form-field" name="apellidos" type="text"/></div>` : 
-    html`<div><label>CIF: </label><input class="form-field" name="CIF" type="text"/></div>`;
+    html`<div><label>Apellidos: </label><input class="form-field" aria-label="Insert your lastname" name="apellidos" type="text" required/></div>` : 
+    html`<div><label>CIF: </label><input class="form-field" aria-label="Insert your CIF" name="CIF" type="text" required/></div>`;
   }
 
   tryRegister(){
