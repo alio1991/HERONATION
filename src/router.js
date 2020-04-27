@@ -32,13 +32,13 @@ export const initRouter = node => {
         import('./views/features-view/features-view.js')
       }
     },
-    // {
-    //   path: '/management',
-    //   component: 'management-view',
-    //   action: () => {
-    //     import('./views/management-view/management-view.js')
-    //   }
-    // }
+    {
+      path: '/management',
+      component: 'management-view',
+      action: () => {
+        import('./views/management-view/management-view.js')
+      }
+    }
     
   ])
 }
