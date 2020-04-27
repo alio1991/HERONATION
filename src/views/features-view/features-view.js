@@ -1,5 +1,6 @@
 import { html, css, LitElement } from 'lit-element';
 import '../../components/new-donation/new-donation.js';
+import '../../components/donations-history/donations-history.js';
 
 export class FeaturesView extends LitElement {
 
@@ -20,20 +21,32 @@ export class FeaturesView extends LitElement {
 
   static get properties() {
     return {
+      donationsHistory: Array
     };
   }
 
   constructor() {
     super();
-    this.registerObject = {};
+    this.donationsHistory = [
+      {
+        nombre: 'DONACION 1',
+        fecha: '3/7/2010',
+        empresa: 'RM ORG'
+      },
+      {
+        nombre: 'DONACION 2',
+        fecha: '30/3/2019',
+        empresa: 'Georfy'
+      }
+    ];
   }
 
 
   render() {
     return html`
       <div class="features">
-        <new-donation .donationList=${['xamlpe']}></new-donation>
-        <h1>Historial</h1>
+        <new-donation></new-donation>
+        <donations-history .donationsHistory=${this.donationsHistory}></donations-history>
       </div>
     `;
   }
