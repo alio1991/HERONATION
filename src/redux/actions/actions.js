@@ -30,3 +30,11 @@ export const setLogout = ()=>{
   return {
     type: 'SET_LOGOUT'  }
 }
+
+
+export const setUserInfo = (user)=>{
+  return {
+    type: 'SET_USER_INFO',
+    user
+  }
+}

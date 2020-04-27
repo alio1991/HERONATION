@@ -9,7 +9,8 @@ const initialStatus = {
     status: true,
     loginType: 'CITIZEN'
     // loginType: 'CORPORATION'
-  }
+  },
+  userInfo: {}
 };
 
 export const reducer = (state = initialStatus, action) => {
@@ -55,14 +56,25 @@ export const reducer = (state = initialStatus, action) => {
 
     case 'SET_LOGOUT':
       let copyLogin = {...initialStatus.loginStatus};
-      LOGIN_TYPE.forEach(login => {
-        copyLogin.status = false;
-        copyLogin.loginType = 'NONE';
-      })
+      copyLogin.status = false;
+      copyLogin.loginType = 'NONE';
+
       return {
         ...state,
         loginStatus: { ...copyLogin }
     }
+
+    case 'SET_USER_INFO':
+      let newUserInfo = {...initialStatus.userInfo};
+      for(let field in action.user){
+        newUserInfo[field] = action.user[field];
+      }
+      initialStatus.userInfo = newUserInfo;      
+      return {
+        ...state,
+        userInfo: { ...newUserInfo }
+      }
+
 
     default:
       return state;
