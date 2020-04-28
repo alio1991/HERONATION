@@ -10,6 +10,7 @@ export class CentersLocation extends connect(store)(LitElement) {
     return css`
     :host {
       display: flex;
+      flex-direction: column;
       position: absolute;
       width: 100%;
       height: 100%;
@@ -22,9 +23,14 @@ export class CentersLocation extends connect(store)(LitElement) {
 
     .filters{
       display: flex;
-      flex-direction: column;
-      width: 20%;
-      background-color: rgb(var(--dark-color),0.7);
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      width: 100%;
+      background-color: rgb(var(--base-color),0.5);
+      height: fit-content;
+      padding: 5px;
+      box-sizing: border-box;
     }
     `;
   }
@@ -36,30 +42,33 @@ export class CentersLocation extends connect(store)(LitElement) {
       },
       centersLocation: {
         type: Array
+      },
+      categories: {
+        type: Array
+      },
+      categoryFilter: {
+        type: Array
       }
     };
   }
 
   constructor() {
     super();
-    this.centersLocation = [
-      {
-        name:'Ejemplo1',
-        location: 'Calle pepino 22',
-        avoids:['Perecederos']
-      },
-      {
-        name:'Ejemplo2',
-        location: 'Calle sinsajo 50',
-        avoids:['No perecederos']
-      },
-      {
-        name:'Ejemplo3',
-        location: 'Calle lerele 10',
-        avoids:['Juguetes','Muebles','Productos de limpieza']
-      },
-    ];
+    this.categories = [];
+    this.categoryFilter = [];
   }
+
+
+  firstUpdated() {
+    fetch('http://localhost:3000/categorias')
+    .then(response => response.json())
+    .then( categories => this.categories = [...categories]);
+
+    fetch('http://localhost:3000/centers')
+    .then(response => response.json())
+    .then( centers => this.centersLocation = [...centers]);
+  }
+
 
   stateChanged(state) {
     this.userLocation = state.location ? state.location : state.coordinates;
@@ -73,14 +82,20 @@ export class CentersLocation extends connect(store)(LitElement) {
 
   render() {
     return html`
-        <nearby-centers .centersLocation=${this.centersLocation} .userLocation =${this.userLocation}></nearby-centers>
         <div class="filters">
-          <div class="filter-option"><input type="checkbox"/><label>Opción A</label></div>
-          <div class="filter-option"><input type="checkbox"/><label>Opción B</label></div>
-          <div class="filter-option"><input type="checkbox"/><label>Opción C</label></div>
-          <div class="filter-option"><input type="checkbox"/><label>Opción D</label></div>
+          ${this.categories.map(elem => html`<div class="filter-option"><input type="checkbox" id=${elem.id} @change=${this.filterSelected}/><label>${elem.name}</label></div>`)}
         </div>
+        <nearby-centers .centersLocation=${this.centersLocation} .userLocation =${this.userLocation}></nearby-centers>
     `;
+  }
+
+  filterSelected({target}){
+    const {id} = target;
+    if(target.checked){
+      this.categoryFilter.push(id);
+    }else{
+      this.categoryFilter = [...this.categoryFilter.filter(categoryId => categoryId !== id)]
+    }
   }
 
 }
