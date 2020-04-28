@@ -64,7 +64,7 @@ export class CentersLocation extends connect(store)(LitElement) {
     .then(response => response.json())
     .then( categories => this.categories = [...categories]);
 
-    fetch('http://localhost:3000/centers')
+    fetch('https://heronation.herokuapp.com/api/usuario-empresas')
     .then(response => response.json())
     .then( centers => this.centersLocation = [...centers]);
   }
