@@ -1,4 +1,5 @@
 import { html, css, LitElement } from 'lit-element';
+import { baseUrl } from '../../../base.route.js'
 
 export class NeedAvoid extends LitElement {
 
@@ -59,7 +60,7 @@ export class NeedAvoid extends LitElement {
   }
 
   firstUpdated() {
-    fetch('http://localhost:3000/categorias')
+    fetch(baseUrl+'/categorias')
     .then(response => response.json())
     .then( categories => {
       this.categoryList = [...categories];

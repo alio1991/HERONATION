@@ -3,6 +3,7 @@ import '../../styles.css';
 import { connect } from 'pwa-helpers';
 import { store } from './../../redux/store.js'
 import '../../components/nearby-centers/nearby-centers.js';
+import { baseUrl } from '../../../base.route.js'
 
 export class CentersLocation extends connect(store)(LitElement) {
 
@@ -60,11 +61,11 @@ export class CentersLocation extends connect(store)(LitElement) {
 
 
   firstUpdated() {
-    fetch('http://localhost:3000/categorias')
+    fetch(baseUrl+'/categorias')
     .then(response => response.json())
     .then( categories => this.categories = [...categories]);
 
-    fetch('https://heronation.herokuapp.com/api/usuario-empresas')
+    fetch(baseUr+'/api/usuario-empresas')
     .then(response => response.json())
     .then( centers => this.centersLocation = [...centers]);
   }

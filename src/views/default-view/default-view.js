@@ -93,17 +93,17 @@ export class DefaultView extends connect(store)(LitElement) {
 
   render() {
     if (store.getState().loginStatus.status) {
-      if (store.getState().loginStatus.loginType === 'CITIZEN') {
+      if (store.getState().loginStatus.loginType === 'ROLE_DONANTE') {
         Router.go('/features')
       } else {
         Router.go('/management')
       }
     } else {
       return html`
-        <div class="selector selector-citizen"  @click="${() => { this.selectUserType('CITIZEN', 'selector-citizen', 'selector-corporation') }}">
+        <div class="selector selector-citizen"  @click="${() => { this.selectUserType('ROLE_DONANTE', 'selector-citizen', 'selector-corporation') }}">
           <h1>Citizen</h1>  
         </div>
-        <div class="selector selector-corporation" @click="${() => { this.selectUserType('CORPORATION', 'selector-corporation', 'selector-citizen') }}">
+        <div class="selector selector-corporation" @click="${() => { this.selectUserType('ROLE_EMPRESA', 'selector-corporation', 'selector-citizen') }}">
           <h1>Corporation</h1>  
         </div>
       `;

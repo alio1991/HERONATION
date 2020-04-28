@@ -1,4 +1,5 @@
 import { html, css, LitElement } from 'lit-element';
+import { baseUrl } from '../../../base.route.js'
 
 export class NewDonation extends LitElement {
 
@@ -49,7 +50,7 @@ export class NewDonation extends LitElement {
 
 
   firstUpdated() {
-    // fetch('http://localhost:3000/categorias')
+    // fetch(baseUrl+'/categorias')
     // .then(response => response.json())
     // .then( categories => {
     //   this.categoryList = [...categories];
@@ -136,7 +137,6 @@ export class NewDonation extends LitElement {
 
   donate(){
     console.log('DONAAAAAAAA');
-    
   }
 
 }

@@ -69,14 +69,14 @@ export class FindCenters extends connect(store)(LitElement) {
 
   onDirectionChanges(ev) {
     store.dispatch(setLocation(ev.target.parentElement.firstElementChild.value))
-    Router.go('/centers')
+    Router.go('/centers');
   }
 
   getLocation() {
     if (navigator.geolocation) { //check if geolocation is available
       navigator.geolocation.getCurrentPosition(function (position) {
         store.dispatch(setCoordinates({ latitude: position.coords.latitude, longitude: position.coords.longitude }))
-        Router.go('/centers')
+        Router.go('/centers');
       });
     } else {
       alert('Esta opción no está disponible en este momento.');
