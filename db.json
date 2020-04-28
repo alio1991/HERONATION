@@ -43,5 +43,23 @@
       "id": 4,
       "name":"PRODUCTOS"
     }
+  ],
+
+  "centers": [
+    {
+      "name":"Ejemplo1",
+      "location": "Calle pepino 22",
+      "avoids":["Perecederos"]
+    },
+    {
+      "name":"Ejemplo2",
+      "location": "Calle sinsajo 50",
+      "avoids":["No perecederos"]
+    },
+    {
+      "name":"Ejemplo3",
+      "location": "Calle lerele 10",
+      "avoids":["Juguetes","Muebles","Productos de limpieza"]
+    }
   ]
 }

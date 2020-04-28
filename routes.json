@@ -4,5 +4,6 @@
   "/api/usuario-empresas": "/api/usuario-empresas",
   "/api/preferencias/empresa/:id": "/api/preferencias/empresa/:id",
   "/api/donacion": "/api/donacion/",
-  "/api/categoria/productos": "/api/categorias"
+  "/api/categoria/productos": "/api/categorias",
+  "/api/centers":"/api/centers"
 }
