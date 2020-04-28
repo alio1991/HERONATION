@@ -24,8 +24,8 @@ body {
   font-size: 18px;
   line-height: 1.5rem;
   background-image: url('./img/images/background_cropped_image.jpg');
-  background-position: top left;
-  background-size: 100% auto;
+  background-position: center;
+  background-size: cover;
   background-color: var(--base-color);
   background-repeat: no-repeat;
   height: 100%;
