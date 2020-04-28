@@ -37,6 +37,7 @@ export class LoginAuthentication extends LitElement {
       overflow:hidden;
       border-radius: 5px;
     }
+
     .background-styling{
       position: relative;
       margin-top: -175px;
@@ -47,6 +48,7 @@ export class LoginAuthentication extends LitElement {
       border-radius: 50%;
       z-index: 0;
     }
+    
     .form-container{
       position: relative;
       display: flex;
