@@ -109,36 +109,37 @@ export class ProfileEdit extends LitElement {
 
   render() {
     const indexList = [];
-    const excludeList = ['rol', 'email','peticionUsuarioDonantes'];
-    for(let field in this.userData){
-      if(!excludeList.includes(field)){
+    const excludeList = ['rol', 'email', 'peticionUsuarioDonantes', 'id', 'preferenciasCategoriaProductos'];
+    for (let field in this.userData) {
+      if (!excludeList.includes(field)) {
         indexList.push(field);
       }
     }
     return html`
     <div class="main-container">
-    <div class="register-container">
-      <div class="background-styling"></div>
-      <div class="form-container">
-    <h3>Modifica aquí tus datos ${this.userData.nombre}</h3>
-    <div id="form">
-    ${
-      indexList.map(field =>{
-        return html`<div><label>${field} </label><input class="form-field" name="${field}" type="text" value="${this.userData[field]}"/></div>`
-      })
-    }
-    <button type="button" @click=${this.saveData} >Guardar</button>
-    </div>
-    </div>
-    </div>
+      <div class="register-container">
+        <div class="background-styling"></div>
+          <div class="form-container">
+            <h3>Modifica aquí tus datos ${this.userData.nombre}</h3>
+            <div id="form">
+              ${
+                indexList.map(field => {
+                  return html`<div><label>${field} </label><input class="form-field" name="${field}" type="text" value="${this.userData[field]}"/></div>`
+                })
+                }
+              </div>
+              <button type="button" @click=${this.saveData} >Guardar</button>
+          </div>
+        </div>
+      </div>
     </div>
     `
   }
 
-  saveData(){
-    [].slice.call(this.shadowRoot.querySelectorAll('.form-field')).map(formInput =>{
+  saveData() {
+    [].slice.call(this.shadowRoot.querySelectorAll('.form-field')).map(formInput => {
       this.userData[formInput.name] = formInput.value;
-    });    
+    });
     store.dispatch(setUserInfo(this.userData));
     //Peti Back
   }

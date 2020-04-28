@@ -37,6 +37,9 @@ export class LandingPage extends connect(store) (LitElement) {
       },
       loginType:{
         type: String
+      },
+      userLogged:{
+        type: Boolean
       }
     };
   }
@@ -47,28 +50,11 @@ export class LandingPage extends connect(store) (LitElement) {
   }
 
   firstUpdated() {
+    fetch('http://localhost:3000/usuario-donantes/0')
+    .then(response => response.json())
+    .then( elem => store.dispatch(setUserInfo((elem))));
 
-    const corporationDataExample = {
-      nombre:'RM.CORP',
-      email:'rmc@gmail.com',
-      telefono:'689571257',
-      contrasena:'*******',
-      direccion:'Calle el misterio 99',
-      rol:'CORPORATION',
-      preferenciasCategoriaProductos: []
-    }
-    const citizenDataExample = {
-      nombre:'Juan',
-      apellidos:'Pérez',
-      email:'jp@gmail.com',
-      telefono:'698598645',
-      contrasena:'***********',
-      direccion:'Calle del Pepe 40',
-      rol:'CITIZEN',
-      peticionUsuarioDonantes: []
-    }
-    //TODO mock y consumir de back
-    store.dispatch(setUserInfo(citizenDataExample));
+    this.userLogged = store.getState().loginStatus.status
   }
 
   stateChanged(state) {
@@ -77,7 +63,7 @@ export class LandingPage extends connect(store) (LitElement) {
 
   render() {
     return html`
-    <main-header .companyName=${"HERO|NATION"} .userLogged=${false}></main-header>
+    <main-header .companyName=${"HERO|NATION"} .userLogged=${this.userLogged}></main-header>
     <main></main>
     `;
   }
