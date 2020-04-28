@@ -31,9 +31,9 @@ export class CenterCard extends LitElement {
   render() {    
     return html`
       <div id="center">
-        <h2>${this.center.name}</h2>
-        <h4>${this.center.location}</h4>
-        <h4>${this.center.avoids}</h4>
+        <h2>${this.center.nombre}</h2>
+        <h4>${this.center.telefono}</h4>
+        <h4>${this.center.direccion}</h4>
       </div>
     `;
   }
