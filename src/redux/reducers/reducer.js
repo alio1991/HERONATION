@@ -7,9 +7,9 @@ const initialStatus = {
   userType: '',
   loginStatus:
   {
-    status: false,
-    loginType: 'CITIZEN'
-    // loginType: 'CORPORATION'
+    status: true,
+    // loginType: 'CITIZEN'
+    loginType: 'CORPORATION'
   },
   userInfo: {}
 };
