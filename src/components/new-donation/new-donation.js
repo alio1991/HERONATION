@@ -10,23 +10,68 @@ export class NewDonation extends LitElement {
       width: fit-content;
       height:100%;
     }
+
+    .donation-list{
+      margin: 10px;
+      background-color: rgba(var(--dark-color),0.8);
+      color: rgba(var(--base-color),1);
+      box-sizing: border-box;
+      padding: 10px;
+      border-radius: 15px;
+    }
+
+    .corporation{
+      margin: 10px;
+      background-color: rgba(var(--dark-color),0.9);
+      color: rgba(var(--base-color),1);
+      box-sizing: border-box;
+      padding: 10px;
+      border-radius: 15px;
+      cursor: pointer;
+    }
     `;
   }
 
   static get properties() {
     return {
-      donationList: Array
+      donationList: Array,
+      corporationList: Array,
+      corporationSection: Boolean
     };
   }
 
   constructor() {
     super();
     this.donationList = [];
+    this.corporationList = [];
+    this.corporationSection = false;
   }
 
 
+  firstUpdated() {
+    // fetch('http://localhost:3000/categorias')
+    // .then(response => response.json())
+    // .then( categories => {
+    //   this.categoryList = [...categories];
+    //   this.needListToShow = [...categories];
+    //   this.avoidListToShow = [...categories];
+    // });
+    this.corporationList = [
+      {
+        nombre: 'Empresa 1'
+      },
+      {
+        nombre: 'Empresa 2'
+      },
+      {
+        nombre: 'Empresa 3'
+      }
+    ]
+  }
+
   render() {
-    return html`
+    if(!this.corporationSection){
+      return html`
         <div id="new-donation">
           <h1>Se un héroe y contribuye</h1>
           <form>
@@ -39,6 +84,9 @@ export class NewDonation extends LitElement {
             </select>
             <button type="button" @click=${this.addElement}>Agregar</button>
           </form>
+          ${
+          this.donationList.length 
+          ? html`
           <div class="donation-list">
             <ul>
               ${
@@ -51,12 +99,28 @@ export class NewDonation extends LitElement {
                 })
               }
               </ul>
-          </div>
+          </div>` 
+          : html``
+          }
         </div>
         ${
-          this.donationList.length ? html`<button type="button" @click=${this.donate}>Realizar Donación</button>` : html``
+          this.donationList.length ? html`<button type="button" @click=${this.changeView}>Realizar Donación</button>` : html``
         }
     `;
+    }else{
+      return html`
+      <h1>Elige un destino para tu donativo</h1>
+        ${
+          this.corporationList.map(enterprise => 
+            html`
+              <div class="corporation" @click=${this.donate}>
+                <p>${enterprise.nombre}</p>
+              </div>
+              `)
+        }
+        <button type="button" @click=${this.changeView}>Atrás</button>
+      `
+    }
   }
 
   addElement(ev){
@@ -66,8 +130,13 @@ export class NewDonation extends LitElement {
     this.donationList = [...this.donationList,{name:name,quantity:quantity,measure:measure}]    
   }
 
+  changeView(){
+    this.corporationSection = !this.corporationSection;
+  }
+
   donate(){
-    console.log('PANTALLA ELECCION DE EMPRESA');
+    console.log('DONAAAAAAAA');
+    
   }
 
 }

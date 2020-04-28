@@ -30,11 +30,11 @@ export class NeedAvoid extends LitElement {
     }
 
     .avoid-filter{
-      background-color: lightcoral;
+      background-color: rgba(var(--red-color),0.8);
     }
 
     .need-filter{
-      background-color: lightgreen;
+      background-color: rgba(var(--green-color),0.8);
     }
     `;
   }
