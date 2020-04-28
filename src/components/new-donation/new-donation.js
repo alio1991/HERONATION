@@ -11,18 +11,64 @@ export class NewDonation extends LitElement {
       height:100%;
     }
 
-    .donation-list{
-      margin: 10px;
-      background-color: rgba(var(--dark-color),0.8);
-      color: rgba(var(--base-color),1);
+    .donation-container{
+      display: flex;
+      width: 100%;
+      margin-top: 5%;
+      height: fit-content;
+      flex-direction: column;
+      justify-items: center;
+      align-items: center;
+      background-color: rgba(var(--base-color), .7);
+      padding: 25px 25px; 
+      overflow:hidden;
+      border-radius: 10px;
+
+    }
+
+    h1{
+      font-weight: 700;
+      color: rgba(var(--dark-color),0.8);
+      font-size: 2.1em;
+    }
+
+    .donation-list, .corporation{
+      align-self: flex-start;
+      width: 92%;
+      margin: 10px 20px;
+      background-color: rgba(var(--base-color), 1);
+      color: rgba(var(--dark-color),1);
+      font-weight: 700;
       box-sizing: border-box;
       padding: 10px;
       border-radius: 15px;
     }
 
+    input, select{
+      padding: 10px 15px; 
+      border: 0px transparent;
+      border-radius: 3px;
+      font-size: 1em;
+    }
+
+    button{
+      padding: 10px 20px;
+      border: 1px solid rgba(var(--purple-color), .5);
+      color: rgb(var(--purple-color));
+      background-color: rgba(var(--base-color), 1);
+      border-radius: 5px;
+      font-weight: 700;
+      margin-top: 15px;
+      align-self: flex-end;
+      font-size: 1em;
+    }
+    
+    .button-donation{
+      margin-right: 25px;
+    }
     .corporation{
       margin: 10px;
-      background-color: rgba(var(--dark-color),0.9);
+      background-color: rgba(var(--purple-color),0.6);
       color: rgba(var(--base-color),1);
       box-sizing: border-box;
       padding: 10px;
@@ -72,7 +118,7 @@ export class NewDonation extends LitElement {
   render() {
     if(!this.corporationSection){
       return html`
-        <div id="new-donation">
+        <div id="new-donation" class="donation-container">
           <h1>Se un héroe y contribuye</h1>
           <form>
             <input type="text" placeholder="Elemento/s a donar"/>
@@ -102,13 +148,14 @@ export class NewDonation extends LitElement {
           </div>` 
           : html``
           }
-        </div>
         ${
-          this.donationList.length ? html`<button type="button" @click=${this.changeView}>Realizar Donación</button>` : html``
+          this.donationList.length ? html`<button class="button-donation" type="button" @click=${this.changeView}>Realizar Donación</button>` : html``
         }
+        </div>
     `;
     }else{
       return html`
+      <div  class="donation-container">
       <h1>Elige un destino para tu donativo</h1>
         ${
           this.corporationList.map(enterprise => 
@@ -119,6 +166,8 @@ export class NewDonation extends LitElement {
               `)
         }
         <button type="button" @click=${this.changeView}>Atrás</button>
+      </div>
+
       `
     }
   }

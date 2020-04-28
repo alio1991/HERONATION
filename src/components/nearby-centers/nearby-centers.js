@@ -12,6 +12,13 @@ export class NearbyCenters extends LitElement {
       height:70%;
     }
 
+    h3{
+      font-weight: 700;
+      color: rgb(var(--base-color));
+      text-shadow: 0px 0px 4px #000;
+      font-size: 1.9em;
+    }
+
     #map{
       display: flex;
       margin: 10px;

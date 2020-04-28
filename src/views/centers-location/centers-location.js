@@ -60,9 +60,9 @@ export class CentersLocation extends connect(store)(LitElement) {
 
 
   firstUpdated() {
-    fetch('http://localhost:3000/categorias')
-    .then(response => response.json())
-    .then( categories => this.categories = [...categories]);
+    // fetch('http://localhost:3000/categorias')
+    // .then(response => response.json())
+    // .then( categories => this.categories = [...categories]);
 
     fetch('https://heronation.herokuapp.com/api/usuario-empresas')
     .then(response => response.json())
@@ -85,7 +85,7 @@ export class CentersLocation extends connect(store)(LitElement) {
         <div class="filters">
           ${this.categories.map(elem => html`<div class="filter-option"><input type="checkbox" id=${elem.id} @change=${this.filterSelected}/><label>${elem.nombre}</label></div>`)}
         </div>
-        <nearby-centers .centersLocation=${this.centersLocation} .userLocation =${this.userLocation}></nearby-centers>
+        ${this.centersLocation!==undefined? html`<nearby-centers .centersLocation=${this.centersLocation} .userLocation =${this.userLocation}></nearby-centers>`: ''}
     `;
   }
 
