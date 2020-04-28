@@ -3,6 +3,6 @@
   "/api/usuario-empresas/:email": "/api/usuario-empresas/:id",
   "/api/usuario-empresas": "/api/usuario-empresas",
   "/api/preferencias/empresa/:id": "/api/preferencias/empresa/:id",
-  "/api/donacion/": "/api/donacion/",
-  "/api/categoria/productos": "/api/categoria/productos"
+  "/api/donacion": "/api/donacion/",
+  "/api/categoria/productos": "/api/categorias"
 }

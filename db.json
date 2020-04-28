@@ -20,5 +20,28 @@
       "rol":"CORPORATION",
       "preferenciasCategoriaProductos": []
     }
+  ],
+
+  "categorias" : [
+    {
+      "id": 0,
+      "name":"PERECEDEROS"
+    },
+    {
+      "id": 1,
+      "name":" NO PERECEDEROS"
+    },
+    {
+      "id": 2,
+      "name":"JUGUETES"
+    },
+    {
+      "id": 3,
+      "name":"ROPA"
+    },
+    {
+      "id": 4,
+      "name":"PRODUCTOS"
+    }
   ]
 }
