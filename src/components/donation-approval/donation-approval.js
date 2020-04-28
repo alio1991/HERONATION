@@ -37,9 +37,7 @@ export class DonationsApproval extends LitElement {
   }
 
 
-  render() {
-    console.log(this.donationsToApprove);
-    
+  render() {    
     return html`
       <div id="donation-approval">
         <h1>Administración de peticiones</h1>
@@ -53,7 +51,7 @@ export class DonationsApproval extends LitElement {
                 </div>
                 <div>
                   <ul>
-          ${donation.lista.map(elem => html`<li>${elem.quantity} ${elem.measure} de <u>${elem.item}</u></li>`)}
+                    ${donation.lista.map(elem => html`<li>${elem.quantity} ${elem.measure} de <u>${elem.item}</u></li>`)}
                   </ul>
                   <textarea>
                   </textarea>

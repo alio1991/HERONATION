@@ -1,7 +1,7 @@
 import { html, css, LitElement } from 'lit-element';
 import '../../components/donations-history/donations-history.js';
 import '../../components/donation-approval/donation-approval.js';
-import { Router } from '@vaadin/router';
+import '../../components/need-avoid/need-avoid.js';
 
 export class ManagementView extends LitElement {
 
@@ -13,7 +13,13 @@ export class ManagementView extends LitElement {
     }
 
     .management{
+      width:100%;
       padding-top: var(--header-height);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .donations{
       display: flex;
       justify-content: space-evenly;
     }
@@ -85,8 +91,11 @@ export class ManagementView extends LitElement {
   render() {
     return html`
     <div class="management">
-      <donation-approval .donationsToApprove=${this.donationsToApprove}></donation-approval>
-      <donations-history .donationsHistory=${this.donationsHistory}></donations-history>
+      <need-avoid></need-avoid>
+      <div class="donations">
+        <donation-approval .donationsToApprove=${this.donationsToApprove}></donation-approval>
+        <donations-history .donationsHistory=${this.donationsHistory}></donations-history>
+      </div>
     </div>
     `;
   }

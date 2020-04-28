@@ -68,7 +68,6 @@ export class NewDonation extends LitElement {
 
   donate(){
     console.log('PANTALLA ELECCION DE EMPRESA');
-    
   }
 
 }
