@@ -83,7 +83,7 @@ export class CentersLocation extends connect(store)(LitElement) {
   render() {
     return html`
         <div class="filters">
-          ${this.categories.map(elem => html`<div class="filter-option"><input type="checkbox" id=${elem.id} @change=${this.filterSelected}/><label>${elem.name}</label></div>`)}
+          ${this.categories.map(elem => html`<div class="filter-option"><input type="checkbox" id=${elem.id} @change=${this.filterSelected}/><label>${elem.nombre}</label></div>`)}
         </div>
         <nearby-centers .centersLocation=${this.centersLocation} .userLocation =${this.userLocation}></nearby-centers>
     `;
