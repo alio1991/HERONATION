@@ -24,6 +24,7 @@ export class MainHeader extends connect(store)(LitElement) {
       top: 0;
       left: 0;
       z-index: 3;
+      background-color: rgba(var(--base-color),0.3)
     }
 
     a{

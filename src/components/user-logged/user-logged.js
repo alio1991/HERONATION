@@ -40,7 +40,10 @@ export class UserLogged extends connect(store)(LitElement) {
       box-sizing: border-box;
       right: 15px;
       top: var( --header-height);
-      background-color: rgb(var(--base-color),0.5);
+      background-color: rgb(var(--base-color),1);
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
+
     }
 
     .option:hover{
