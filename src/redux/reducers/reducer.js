@@ -1,27 +1,19 @@
 import { LOGIN_TYPE } from '../../assets/data/data.js';
 
 const initialStatus = {
-  appName: 'Name',
   location: '',
   coordinates: null,
   userType: '',
   loginStatus:
   {
     status: false,
-    // loginType: 'CITIZEN'
-    loginType: 'CORPORATION'
+    loginType: 0
   },
   userInfo: {}
 };
 
 export const reducer = (state = initialStatus, action) => {
   switch (action.type) {
-
-    case 'SET_APPNAME':
-      return {
-        ...state,
-        appName: action.appName
-      }
 
     case 'SET_LOCATION':
       initialStatus.location = action.location;
@@ -44,9 +36,9 @@ export const reducer = (state = initialStatus, action) => {
     case 'SET_LOGIN':
       let newLogin = {...initialStatus.loginStatus};
       LOGIN_TYPE.forEach(login => {
-        if (login.name === action.loginType && login.name !== 'NONE') {
+        if (login.name === action.loginImported && login.name !== 'NONE') {
           newLogin.status = true;
-          newLogin.loginType = login.name;
+          newLogin.loginType = action.loginImported;
         }
       })
       return {

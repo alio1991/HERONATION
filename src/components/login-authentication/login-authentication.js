@@ -3,6 +3,7 @@ import { EMAIL_REG } from '../../assets/data/data.js'
 import { setLogin } from './../../redux/actions/actions.js';
 import { store } from './../../redux/store.js';
 import { Router } from '@vaadin/router';
+import { baseUrl } from '../../../base.route.js'
 
 export class LoginAuthentication extends LitElement {
   static get properties() {
@@ -138,15 +139,37 @@ export class LoginAuthentication extends LitElement {
   }
 
   _submitValidation() {
+    this.password =  this.shadowRoot.querySelector('#password').value
+    this.email = this.shadowRoot.querySelector('#email').value
+
     if (this.isFormValid === 0) {
     }
-    fetch('http://localhost:3000/oauth')
+    const passwordParsed = btoa('frontapp:hackathlon.virtual');    
+    const params =  new URLSearchParams();
+    const user = this.email;
+    params.set('grant_type','password');
+    params.set('username', user);
+    params.set('password', this.password);
+    fetch(baseUrl+'/oauth/token', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Basic '+ passwordParsed
+      },
+      method: 'POST',
+      body: params
+    })
     .then(response => response.json())
     .then( token => {
-      if(token.status){
-        store.dispatch(setLogin(token.type));
+      console.log(token);
+      
+      if(token['access_token']){        
+        sessionStorage.setItem('heronationToken', token['access_token']);
+        sessionStorage.setItem('email', token['email_usuario']);
+        sessionStorage.setItem('userType', token.rol);
+        store.dispatch(setLogin(token.rol));
         Router.go('/');
-      }
+      }      
     });
   }
 }

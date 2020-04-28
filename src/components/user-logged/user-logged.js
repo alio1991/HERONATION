@@ -103,6 +103,9 @@ export class UserLogged extends connect(store)(LitElement) {
   logout(){
     this.manageInfoVisibility();
     store.dispatch(setLogout());
+    sessionStorage.removeItem('heronationToken');
+    sessionStorage.removeItem('email');
+    sessionStorage.removeItem('userType');
     Router.go('/');
   }
 

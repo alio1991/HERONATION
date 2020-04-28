@@ -1,9 +1,3 @@
-export const setAppName = (appName) => {
-  return {
-    type: 'SET_APPNAME',
-    appName
-  }
-}
 
 export const setLocation = (location) => {
   return {
@@ -19,10 +13,10 @@ export const setCoordinates = (coordinates) => {
   }
 }
 
-export const setLogin = (loginType) => {
+export const setLogin = (loginImported) => {
   return {
     type: 'SET_LOGIN',
-    loginType
+    loginImported
   }
 }
 

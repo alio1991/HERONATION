@@ -4,6 +4,7 @@ import { connect } from 'pwa-helpers';
 import { store } from './../../redux/store.js'
 import { setUserInfo } from './../../redux/actions/actions.js';
 import { LOGIN_TYPE } from '../../assets/data/data.js';
+import { baseUrl } from '../../../base.route.js'
 import '../../components/main-header/main-header.js';
 
 
@@ -50,11 +51,22 @@ export class LandingPage extends connect(store) (LitElement) {
   }
 
   firstUpdated() {
-    fetch('http://localhost:3000/usuario-donantes/0')
-    .then(response => response.json())
-    .then( elem => store.dispatch(setUserInfo((elem))));
+    const token = sessionStorage.getItem('heronationToken');
+    const userType = sessionStorage.getItem('userType')==='ROLE_DONANTE' ? 'donantes' : 'empresas';
+    const email = sessionStorage.getItem('email');
+    if(token){
+      fetch(`${baseUrl}/api/usuario-${userType}/${email}`)
+      .then(response => response.json())
+      .then( elem => {
+        store.dispatch(setUserInfo((elem)));
+        this.userLogged = true;
+      })
+      .catch(function(error) {
+        this.userLogged = false;
+        Router.go('/');
+      });
+    }
 
-    this.userLogged = store.getState().loginStatus.status
   }
 
   stateChanged(state) {

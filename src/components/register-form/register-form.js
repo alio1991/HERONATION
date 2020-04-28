@@ -1,5 +1,6 @@
 import { html, css, LitElement } from 'lit-element';
 import { Router } from '@vaadin/router';
+import { baseUrl } from '../../../base.route.js'
 
 export class RegisterForm extends LitElement {
 
@@ -91,10 +92,12 @@ export class RegisterForm extends LitElement {
         <div id="form">
           <div><label>Email: </label><input class="form-field" aria-label="Insert your email" name="mail" type="text" required/></div>
           <div><label>Contraseña: </label><input class="form-field" aria-label="Insert a password" name="password" type="password" required></div>
+          <div><label>Nombre: </label><input class="form-field" aria-label="Insert your Corporation name" name="nombre" type="text" required/></div>
           ${this.getOwnFields()}
           <div><label>Teléfono: </label><input class="form-field" aria-label="Insert your Phone" name="telefono" type="tel" required/></div>
           <div><label>Calle: </label><input class="form-field" aria-label="Insert your street" name="calle" type="text" required/></div>
-          <div><label>Código Postal: </label><input class="form-field" aria-label="Insert your postal code" name="codigo-postal" type="text" required/></div>
+          <div><label>Código Postal: </label><input class="form-field" aria-label="Insert your postal code" name="cp" type="text" required/></div>
+          <div><label>Población: </label><input class="form-field" aria-label="Insert your village" name="poblacion" type="text" required/></div>
           <div><label>Provincia: </label><input class="form-field" aria-label="Insert your province" name="provincia" type="text" required/></div>
           <button @click=${() => this.tryRegister()} type="button">Register</button>
         </div>
@@ -103,30 +106,58 @@ export class RegisterForm extends LitElement {
     `;
   }
 
-  getOwnFields(){    
-    return this.loginType === 'CITIZEN' ? 
-    html`<div><label>Apellidos: </label><input class="form-field" aria-label="Insert your lastname" name="apellidos" type="text" required/></div>` : 
-    html`<div><label>CIF: </label><input class="form-field" aria-label="Insert your CIF" name="CIF" type="text" required/></div>`;
+  getOwnFields() {
+    return this.loginType === 'ROLE_DONANTE' ?
+      html`<div><label>Apellidos: </label><input class="form-field" aria-label="Insert your lastname" name="apellidos" type="text" required/></div>` :
+      html`<div><label>CIF: </label><input class="form-field" aria-label="Insert your CIF" name="CIF" type="text" required/></div>`;
   }
 
-  tryRegister(){
-    const endpoint = this.loginType==='CITIZEN' ? 'usuario-donantes' : 'usuario-empresas';
+  tryRegister() {
+    const endpoint = this.loginType === 'ROLE_DONANTE' ? 'usuario-donantes' : 'usuario-empresas';
     let required = [];
-    [].slice.call(this.shadowRoot.querySelectorAll('.form-field')).map(field =>{
-      if(field.value){
+    [].slice.call(this.shadowRoot.querySelectorAll('.form-field')).map(field => {
+      if (field.value) {
         this.registerObject[field.name] = field.value;
-      }else{
+      } else {
         required.push(field.name);
       }
     });
-    if(!required.length){
-      fetch('http://localhost:3000/'+endpoint+'/0')
-      .then(response => response.json())
-      .then( user => {
-        console.log(user);
-      });
-      Router.go(this.loginType === 'CITIZEN' ? '/features' : '/management');
-    }else{
+
+    if (!required.length) {
+      
+      const citizen = this.loginType === 'ROLE_DONANTE';
+      const mode =  citizen ? 'donantes' : 'empresas';
+      let bodyContent = citizen 
+      ? {
+        "nombre": this.registerObject.nombre,
+        "apellidos": this.registerObject.apellidos,
+        "telefono": this.registerObject.telefono,
+        "direccion": {calle:this.registerObject.calle,codigoPostal: this.registerObject.cp, poblacion: this.registerObject.poblacion},
+        "email": this.registerObject.mail,
+        "password": this.registerObject.password}
+      : {
+        "id": this.registerObject.CIF,
+        "nombre": this.registerObject.nombre,
+        "telefono": this.registerObject.telefono,
+        "activo": 1,
+        "direccion": {calle:this.registerObject.calle,codigoPostal: this.registerObject.cp},
+        "email": this.registerObject.mail,
+        "password": this.registerObject.password
+      };
+      console.log(bodyContent);
+      console.log(baseUrl);
+      bodyContent = JSON.stringify(bodyContent);
+      fetch(baseUrl+'/api/usuario-' + mode,
+        {
+          method: 'POST',
+          body: bodyContent
+        })
+        .then(response => response.json())
+        .then(user => {
+          console.log(user);
+        });
+      Router.go(this.loginType === 'ROLE_DONANTE' ? '/features' : '/management');
+    } else {
       alert(`El campo ${required[0]} es obligatorio.`);
     }
   }
