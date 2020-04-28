@@ -114,7 +114,7 @@ export class LoginAuthentication extends LitElement {
             <input type="password" name="password" id="password" placeholder="Insert Password" aria-label="Insert your password" @keyup="${this.setPassword}" required>
             ${this.errorMessages}
           </div>
-          <button ?disabled=${this.isValidLogin} @click="${this._submitValidation}">Send</button>
+          <button type="button" ?disabled=${this.isValidLogin} @click="${this._submitValidation}">Send</button>
         </form>
       </div>
     </div>
@@ -139,10 +139,15 @@ export class LoginAuthentication extends LitElement {
 
   _submitValidation() {
     if (this.isFormValid === 0) {
-      //make submit
     }
-    store.dispatch(setLogin(this.loginType));
-    Router.go('/');
+    fetch('http://localhost:3000/oauth')
+    .then(response => response.json())
+    .then( token => {
+      if(token.status){
+        store.dispatch(setLogin(token.type));
+        Router.go('/');
+      }
+    });
   }
 }
 customElements.define('login-authentication', LoginAuthentication);

@@ -25,23 +25,28 @@
   "categorias" : [
     {
       "id": 0,
-      "name":"PERECEDEROS"
+      "nombre":"PERECEDEROS",
+      "descripcion": "..."
     },
     {
       "id": 1,
-      "name":" NO PERECEDEROS"
+      "nombre":" NO PERECEDEROS",
+      "descripcion": "..."
     },
     {
       "id": 2,
-      "name":"JUGUETES"
+      "nombre":"JUGUETES",
+      "descripcion": "..."
     },
     {
       "id": 3,
-      "name":"ROPA"
+      "nombre":"ROPA",
+      "descripcion": "..."
     },
     {
       "id": 4,
-      "name":"PRODUCTOS"
+      "nombre":"PRODUCTOS",
+      "descripcion": "..."
     }
   ],
 
@@ -61,5 +66,10 @@
       "location": "Calle lerele 10",
       "avoids":["Juguetes","Muebles","Productos de limpieza"]
     }
-  ]
+  ],
+  "oauth" : {
+    "status": true,
+    "email": "ejemploLogin@gmail.com",
+    "type": "CITIZEN"
+  }
 }
