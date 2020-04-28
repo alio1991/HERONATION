@@ -110,6 +110,7 @@ export class RegisterForm extends LitElement {
   }
 
   tryRegister(){
+    const endpoint = this.loginType==='CITIZEN' ? 'usuario-donantes' : 'usuario-empresas';
     let required = [];
     [].slice.call(this.shadowRoot.querySelectorAll('.form-field')).map(field =>{
       if(field.value){
@@ -119,6 +120,11 @@ export class RegisterForm extends LitElement {
       }
     });
     if(!required.length){
+      fetch('http://localhost:3000/'+endpoint+'/0')
+      .then(response => response.json())
+      .then( user => {
+        console.log(user);
+      });
       Router.go(this.loginType === 'CITIZEN' ? '/features' : '/management');
     }else{
       alert(`El campo ${required[0]} es obligatorio.`);

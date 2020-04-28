@@ -2,8 +2,8 @@
   "usuario-donantes" : [
     {
       "id": 0,
-      "nombre":"RM.CORP",
-      "email":"rmc@gmail.com",
+      "nombre":"Juan",
+      "email":"juan@gmail.com",
       "telefono":"689571257",
       "contrasena":"*******",
       "direccion":"Calle el misterio 99",
@@ -12,16 +12,37 @@
     },
     {
       "id": 1,
-      "nombre":"LALALA",
-      "email":"rmfdasfc@gmail.com",
+      "nombre":"Jorge",
+      "email":"george@gmail.com",
       "telefono":"689571257",
       "contrasena":"*******",
-      "direccion":"Calle el misterio 99",
+      "direccion":"Calle la lana 9",
       "rol":"CORPORATION",
       "preferenciasCategoriaProductos": []
     }
   ],
-
+  "usuario-empresas" : [
+    {
+      "id": 0,
+      "nombre":"RM.CORP",
+      "email":"rmc@gmail.com",
+      "telefono":"689571257",
+      "contrasena":"*******",
+      "direccion":"Calle el colmo 57",
+      "rol":"CORPORATION",
+      "preferenciasCategoriaProductos": []
+    },
+    {
+      "id": 1,
+      "nombre":"Carité",
+      "email":"crt@gmail.com",
+      "telefono":"689571257",
+      "contrasena":"*******",
+      "direccion":"Calle turulo 24",
+      "rol":"CORPORATION",
+      "preferenciasCategoriaProductos": []
+    }
+  ],
   "categorias" : [
     {
       "id": 0,
