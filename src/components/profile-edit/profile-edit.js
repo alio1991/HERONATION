@@ -8,7 +8,7 @@ export class ProfileEdit extends LitElement {
     return css`
     :host {
       width: 100%;
-      height: 100%;
+      height: fit-content;
       margin: 20px;
     }
 
@@ -103,13 +103,9 @@ export class ProfileEdit extends LitElement {
     super();
   }
 
-  firstUpdated() {
-    this.userData = store.getState().userInfo
-  }
-
   render() {
     const indexList = [];
-    const excludeList = ['rol', 'email', 'peticionUsuarioDonantes', 'id', 'preferenciasCategoriaProductos'];
+    const excludeList = ['rol', 'email', 'peticionUsuarioDonantes', 'id', 'preferenciasCategoriaProductos','usuario'];
     for (let field in this.userData) {
       if (!excludeList.includes(field)) {
         indexList.push(field);

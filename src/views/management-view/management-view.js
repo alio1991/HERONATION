@@ -1,4 +1,6 @@
 import { html, css, LitElement } from 'lit-element';
+import { store } from './../../redux/store.js';
+import { baseUrl } from '../../../base.route.js'
 import '../../components/donations-history/donations-history.js';
 import '../../components/donation-approval/donation-approval.js';
 import '../../components/need-avoid/need-avoid.js';
@@ -36,6 +38,7 @@ export class ManagementView extends LitElement {
 
   constructor() {
     super();
+    // this.donationsHistory = [];
     this.donationsHistory = [
       {
         nombre: 'DONACION 1',
@@ -49,6 +52,8 @@ export class ManagementView extends LitElement {
       }
     ];
 
+    // this.donationsToApprove = [];
+    
     this.donationsToApprove = [
       {
         nombre: 'DONACION 1',
@@ -86,7 +91,29 @@ export class ManagementView extends LitElement {
       }
     ];
   }
+  firstUpdated() {
+    //PENDIENTES
+    const token = sessionStorage.getItem('heronationToken');
+    const userId =  store.getState().userInfo.id;
+    fetch(baseUrl + '/api/pendant-peticions/'+userId,{
+      headers: {
+        'Authorization': 'Bearer '+ token
+      }})
+    .then(response => response.json())
+    .then(donations => {
+      this.donationsToApprove = [...donations];
+    });
 
+    //DONACIONES ACEPTADAS y REVOCADAS
+    fetch(baseUrl + '/api/historico-peticions/'+userId,{
+      headers: {
+        'Authorization': 'Bearer '+ token
+      }})
+    .then(response => response.json())
+    .then(donations => {
+      this.donationsToApprove = [...donations];
+    });
+  }
 
   render() {
     return html`

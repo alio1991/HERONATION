@@ -96,7 +96,7 @@ export class RegisterForm extends LitElement {
           ${this.getOwnFields()}
           <div><label>Teléfono: </label><input class="form-field" aria-label="Insert your Phone" name="telefono" type="tel" required/></div>
           <div><label>Calle: </label><input class="form-field" aria-label="Insert your street" name="calle" type="text" required/></div>
-          <div><label>Código Postal: </label><input class="form-field" aria-label="Insert your postal code" name="cp" type="text" required/></div>
+          <div><label>Código Postal: </label><input class="form-field" aria-label="Insert your postal code" name="cp" type="number" required/></div>
           <div><label>Población: </label><input class="form-field" aria-label="Insert your village" name="poblacion" type="text" required/></div>
           <div><label>Provincia: </label><input class="form-field" aria-label="Insert your province" name="provincia" type="text" required/></div>
           <button @click=${() => this.tryRegister()} type="button">Register</button>
@@ -109,7 +109,7 @@ export class RegisterForm extends LitElement {
   getOwnFields() {
     return this.loginType === 'ROLE_DONANTE' ?
       html`<div><label>Apellidos: </label><input class="form-field" aria-label="Insert your lastname" name="apellidos" type="text" required/></div>` :
-      html`<div><label>CIF: </label><input class="form-field" aria-label="Insert your CIF" name="CIF" type="text" required/></div>`;
+      html`<div><label>CIF: </label><input class="form-field" aria-label="Insert your CIF" name="CIF" type="number" required/></div>`;
   }
 
   tryRegister() {
@@ -127,12 +127,12 @@ export class RegisterForm extends LitElement {
       
       const citizen = this.loginType === 'ROLE_DONANTE';
       const mode =  citizen ? 'donantes' : 'empresas';
-      let bodyContent = citizen 
+      const bodyContent = citizen 
       ? {
         "nombre": this.registerObject.nombre,
         "apellidos": this.registerObject.apellidos,
         "telefono": this.registerObject.telefono,
-        "direccion": {calle:this.registerObject.calle,codigoPostal: this.registerObject.cp, poblacion: this.registerObject.poblacion},
+        "direccion": {calle:this.registerObject.calle,codigoPostal: this.registerObject.cp, poblacion: {nombre:this.registerObject.poblacion}},
         "email": this.registerObject.mail,
         "password": this.registerObject.password}
       : {
@@ -140,23 +140,25 @@ export class RegisterForm extends LitElement {
         "nombre": this.registerObject.nombre,
         "telefono": this.registerObject.telefono,
         "activo": 1,
-        "direccion": {calle:this.registerObject.calle,codigoPostal: this.registerObject.cp},
+        "direccion": {calle:this.registerObject.calle,codigoPostal: this.registerObject.cp, poblacion: {nombre:this.registerObject.poblacion}},
         "email": this.registerObject.mail,
         "password": this.registerObject.password
       };
-      console.log(bodyContent);
-      console.log(baseUrl);
-      bodyContent = JSON.stringify(bodyContent);
+
       fetch(baseUrl+'/api/usuario-' + mode,
         {
           method: 'POST',
-          body: bodyContent
+          body: JSON.stringify(bodyContent),
+          headers:{
+            'Content-Type': 'application/json'
+          }
         })
         .then(response => response.json())
         .then(user => {
           console.log(user);
         });
-      Router.go(this.loginType === 'ROLE_DONANTE' ? '/features' : '/management');
+      // Router.go(this.loginType === 'ROLE_DONANTE' ? '/features' : '/management');
+      Router.go('/');
     } else {
       alert(`El campo ${required[0]} es obligatorio.`);
     }

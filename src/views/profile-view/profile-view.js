@@ -9,7 +9,7 @@ export class ProfileView extends LitElement {
       display: flex;
       padding-top: var(--header-height);
       width: 100%;
-      height:100%;
+      height: calc(100vh - var(--header-height));
     }
 
     `;
@@ -23,6 +23,7 @@ export class ProfileView extends LitElement {
 
   constructor() {
     super();
+    this.userData = store.getState().userInfo
   }
 
   firstUpdated() {

@@ -13,6 +13,7 @@ export class AccessView extends connect(store)(LitElement) {
       flex-direction: column;
       width: 70%;
       margin: 8% auto;
+      padding-top: var(--header-height);
       align-items: center;
     }
 
@@ -23,7 +24,7 @@ export class AccessView extends connect(store)(LitElement) {
     }
 
     .button-container{
-      width: 40%;
+      width: 300px;
       display: flex;
       flex-direction: row;
       justify-content:center;
@@ -38,7 +39,7 @@ export class AccessView extends connect(store)(LitElement) {
       height: 100%;
       color: rgba(var(--base-color), 1);
       font-weight: 700;
-      font-size: 2em;
+      font-size: 150%;
       padding: 20% 10px;
       text-align: center;
       transition: all 1s ease;
@@ -48,12 +49,13 @@ export class AccessView extends connect(store)(LitElement) {
     .button-citizen{
       background-color: rgba(var(--green-color), 1);
       margin-left:-10%;
-
+      text-align: right;
     }
     
     .button-corporation{
       background-color: rgba(var(--purple-color), 1);
       margin-right:-10%;
+      text-align: left;
     }
     
     .button-citizen:hover{
@@ -96,15 +98,17 @@ export class AccessView extends connect(store)(LitElement) {
   }
 
   
-  render() {
-    if (this.profileSelected !== "NONE") {
+  render() {    
+    if (this.profileSelected !== "") {
       return html`
-    <div class="select-authentication-container">
-    <h1>${this.profileSelected}</h1>
-        ${this.renderAccess()}
-      ${this.showBackButton()}
-    </div>
-    `;
+        <div class="select-authentication-container">
+          <h1>${this.profileSelected === 'ROLE_DONANTE' ? 'DONANTE' : 'EMPRESA'}</h1>
+          ${this.renderAccess()}
+          ${this.showBackButton()}
+        </div>
+      `;
+    }else{
+      Router.go('/');
     }
     return html``;
   }
@@ -117,8 +121,8 @@ export class AccessView extends connect(store)(LitElement) {
     } else {
       return html`
       <div class="button-container">
-        <div class="button button-citizen" tabindex="0" role="button" @click="${() => this.setUserSelection('login')}">Login</div>
-        <div class="button button-corporation" tabindex="0" role="button" @click="${() => this.setUserSelection('register')}">Register</div>
+        <div class="button button-citizen" tabindex="0" role="button" @click="${() => this.setUserSelection('login')}">Entra</div>
+        <div class="button button-corporation" tabindex="0" role="button" @click="${() => this.setUserSelection('register')}">Regístrate</div>
       </div>
         
       `;

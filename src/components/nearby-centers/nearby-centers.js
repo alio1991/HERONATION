@@ -93,7 +93,7 @@ export class NearbyCenters extends LitElement {
 
 
       //Centrar en un punto el mapa
-      //map.setCenter(results[0].geometry.location);
+      // map.setCenter({ latitude: this.userLocation.latitude, lng: this.userLocation.longitude });
     }
   }
 

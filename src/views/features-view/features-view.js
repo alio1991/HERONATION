@@ -1,4 +1,6 @@
 import { html, css, LitElement } from 'lit-element';
+import { baseUrl } from '../../../base.route.js'
+import { store } from './../../redux/store.js';
 import '../../components/new-donation/new-donation.js';
 import '../../components/donations-history/donations-history.js';
 
@@ -27,6 +29,7 @@ export class FeaturesView extends LitElement {
 
   constructor() {
     super();
+    // this.donationsHistory = [];
     this.donationsHistory = [
       {
         nombre: 'DONACION 1',
@@ -41,6 +44,20 @@ export class FeaturesView extends LitElement {
     ];
   }
 
+  firstUpdated() {
+    // const token = sessionStorage.getItem('heronationToken');
+    // const userId =  store.getState().userInfo.id;
+    // fetch(baseUrl + '/api/historico-peticions/usuario-donante/'+userId,{
+    //   headers: {
+    //     'Authorization': 'Bearer '+ token
+    //   }})
+    // .then(response => response.json())
+    // .then(donations => {
+    //   console.log(donations);
+      
+    //   this.donationsHistory = [...donations];
+    // });
+  }
 
   render() {
     return html`

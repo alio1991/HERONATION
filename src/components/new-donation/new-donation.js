@@ -1,5 +1,7 @@
 import { html, css, LitElement } from 'lit-element';
 import { baseUrl } from '../../../base.route.js'
+import { store } from './../../redux/store.js';
+
 
 export class NewDonation extends LitElement {
 
@@ -83,7 +85,9 @@ export class NewDonation extends LitElement {
     return {
       donationList: Array,
       corporationList: Array,
-      corporationSection: Boolean
+      corporationSection: Boolean,
+      categories: Array,
+      categoryFilter: Array
     };
   }
 
@@ -92,28 +96,18 @@ export class NewDonation extends LitElement {
     this.donationList = [];
     this.corporationList = [];
     this.corporationSection = false;
+    this.categories = [];
+    this.categoryFilter = [];
   }
 
 
   firstUpdated() {
-    // fetch(baseUrl+'/categorias')
-    // .then(response => response.json())
-    // .then( categories => {
-    //   this.categoryList = [...categories];
-    //   this.needListToShow = [...categories];
-    //   this.avoidListToShow = [...categories];
-    // });
-    this.corporationList = [
-      {
-        nombre: 'Empresa 1'
-      },
-      {
-        nombre: 'Empresa 2'
-      },
-      {
-        nombre: 'Empresa 3'
-      }
-    ]
+    fetch(baseUrl+'/api/categoria-productos')
+    .then(response => response.json())
+    .then( categories => {
+      this.categories = [...categories];
+    });
+
   }
 
   render() {
@@ -122,6 +116,11 @@ export class NewDonation extends LitElement {
         <div id="new-donation" class="donation-container">
           <h1>Se un héroe y contribuye</h1>
           <form>
+            <select id="categorias">
+              ${
+                this.categories.map(elem => html`<option value=${elem.id}>${elem.nombre}</option>`)
+              }
+            </select>
             <input type="text" placeholder="Elemento/s a donar"/>
             <input type="number" placeholder="Cantidad" id="quantity" name="quantity" min="0" max="100">
             <select id="unidades">
@@ -159,12 +158,12 @@ export class NewDonation extends LitElement {
       <div  class="donation-container">
       <h1>Elige un destino para tu donativo</h1>
         ${
-          this.corporationList.map(enterprise => 
-            html`
-              <div class="corporation" @click=${this.donate}>
+          this.corporationList.map(enterprise => {
+            return html`
+              <div id=${enterprise.id} class="corporation" @click=${this.donate}>
                 <p>${enterprise.nombre}</p>
               </div>
-              `)
+              `})
         }
         <button type="button" @click=${this.changeView}>Atrás</button>
       </div>
@@ -174,19 +173,60 @@ export class NewDonation extends LitElement {
   }
 
   addElement(ev){
-    const name = ev.target.parentElement.elements[0].value;
-    const quantity = ev.target.parentElement.elements[1].value;
-    const measure = ev.target.parentElement.elements[2].value;
-    this.donationList = [...this.donationList,{name:name,quantity:quantity,measure:measure}]    
+    const category = ev.target.parentElement.elements[0].value;
+    const name = ev.target.parentElement.elements[1].value;
+    const quantity = ev.target.parentElement.elements[2].value;
+    const measure = ev.target.parentElement.elements[3].value;
+    this.donationList = [...this.donationList,{name:name,quantity:quantity,measure:measure,category: {id:parseInt(category)}}]    
+    console.log(this.donationList);
+    this.corporationFilter(category);
+  }
+
+  corporationFilter(category){
+    if(!this.categoryFilter.includes(parseInt(category))){
+      this.categoryFilter.push(parseInt(category));
+    }
   }
 
   changeView(){
-    this.corporationSection = !this.corporationSection;
+    fetch(baseUrl+'/api/preferencias/categoria-producto',{
+      method: 'POST',
+      body: JSON.stringify(this.categoryFilter),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then( centers => {
+      this.corporationList = [...centers];
+      this.corporationSection = !this.corporationSection;
+    });
+    
   }
 
-  donate(){
-    console.log('DONAAAAAAAA');
+  donate(ev){
+    // const enterprise = this.corporationList.find(elem => parseInt(elem.id) === parseInt(ev.target.id));
+    const user = store.getState().userInfo;
+    const donation = {usuarioEmpresa: {id: parseInt(ev.target.id)}, productos:this.donationList, usuarioDonante:user}
+    const token = sessionStorage.getItem('heronationToken');
+    console.log(donation);
+    
+    fetch(baseUrl+'/api/donacion',
+    {
+      method: 'POST',
+      body: JSON.stringify(donation),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '+ token
+      }
+    })
+    .then(response => response.json())
+    .then(user => {
+      alert('Donación realizada con éxito');
+    });
   }
+
+
 
 }
 

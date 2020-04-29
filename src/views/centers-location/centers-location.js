@@ -61,11 +61,14 @@ export class CentersLocation extends connect(store)(LitElement) {
 
 
   firstUpdated() {
-    fetch(baseUrl+'/categorias')
-    .then(response => response.json())
-    .then( categories => this.categories = [...categories]);
 
-    fetch(baseUr+'/api/usuario-empresas')
+    fetch(baseUrl+'/api/categoria-productos')
+    .then(response => response.json())
+    .then( categories => {
+      this.categories = [...categories];
+    });
+
+    fetch(baseUrl+'/api/usuario-empresas')
     .then(response => response.json())
     .then( centers => this.centersLocation = [...centers]);
   }
@@ -93,10 +96,23 @@ export class CentersLocation extends connect(store)(LitElement) {
   filterSelected({target}){
     const {id} = target;
     if(target.checked){
-      this.categoryFilter.push(id);
+      this.categoryFilter.push(parseInt(id));
     }else{
-      this.categoryFilter = [...this.categoryFilter.filter(categoryId => categoryId !== id)]
+      this.categoryFilter = [...this.categoryFilter.filter(categoryId => categoryId.toString() !== id)]
     }
+
+    fetch(baseUrl+'/api/preferencias/categoria-producto',{
+      method: 'POST',
+      body: JSON.stringify(this.categoryFilter),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then( centers => {
+      this.centersLocation = [...centers];
+    });
+    
   }
 
 }

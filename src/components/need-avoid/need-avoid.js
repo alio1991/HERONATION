@@ -60,16 +60,36 @@ export class NeedAvoid extends LitElement {
   }
 
   firstUpdated() {
-    fetch(baseUrl+'/categorias')
-    .then(response => response.json())
-    .then( categories => {
-      this.categoryList = [...categories];
-      this.needListToShow = [...categories];
-      this.avoidListToShow = [...categories];
-    });
+    const token = sessionStorage.getItem('heronationToken');
+    fetch(baseUrl + '/api/categoria-productos')
+      .then(response => response.json())
+      .then(categories => {
+        this.categoryList = [...categories];
+        this.needListToShow = [...categories];
+        this.avoidListToShow = [...categories];
+      });
+
+    const email = sessionStorage.getItem('email');
+    fetch(baseUrl + '/api/preferencias/empresa/email/'+email, {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      },
+    })
+      .then(response => response.json())
+      .then(categories => {
+        categories.map(category => {
+          if (category.exclusion) {            
+            this.avoidList.push(category.categoriaProducto.id);
+          } else if (category.necesidad) {
+            this.needList.push(category.categoriaProducto.id);
+          }
+        })
+        this.manageDefaultChecks();
+      });
+
   }
 
-  render() {    
+  render() {
     return html`
       <div class="donation-approval">
         <div class="filters">
@@ -84,47 +104,63 @@ export class NeedAvoid extends LitElement {
     `;
   }
 
-  getAvoidFilter(list){
-    return list.map(elem => 
-      html`
+  getAvoidFilter(list) {
+    return list.map(elem => {
+      return html`
         <div class="filter-option">
           <input type="checkbox" id=${elem.id} @change=${this.avoidModified}/>
           <label>${elem.nombre}</label>
         </div>
-      `)
+      `})
   }
 
-  getNeedFilter(list){
-    return list.map(elem => 
-      html`
+  getNeedFilter(list) {
+    return list.map(elem => {
+      return html`
         <div class="filter-option">
           <input type="checkbox" id=${elem.id} @change=${this.needModified}/>
           <label>${elem.nombre}</label>
         </div>
-      `
+      `}
     );
   }
 
-  needModified({target}){
-    const {id} = target;
-    if(target.checked){
+  needModified({ target }) {
+    const { id } = target;
+    if (target.checked) {
       this.needList.push(this.categoryList.find(elem => elem.id.toString() === id.toString()));
       this.avoidListToShow = [...this.avoidListToShow.filter(elem => elem.id.toString() !== id.toString())]
-    }else{
+    } else {
       this.needList = [...this.categoryList.filter(category => category.id.toString() !== id.toString())];
       this.avoidListToShow.push(this.categoryList.find(elem => elem.id.toString() === id.toString()));
     }
   }
 
-  avoidModified({target}){
-    const {id} = target;
-    if(target.checked){
+  avoidModified({ target }) {
+    const { id } = target;
+    if (target.checked) {
       this.avoidList.push(this.categoryList.find(elem => elem.id.toString() === id.toString()));
       this.needListToShow = [...this.needListToShow.filter(elem => elem.id.toString() !== id.toString())]
-    }else{
+    } else {
       this.avoidList = [...this.categoryList.filter(category => category.id.toString() !== id.toString())];
       this.needListToShow.push(this.categoryList.find(elem => elem.id.toString() === id.toString()));
     }
+  }
+
+  manageDefaultChecks(){
+    const avoidFilterInputs = [].slice.call(this.shadowRoot.querySelector('.avoid-filter').querySelectorAll('input'));
+    const needFilterInputs = [].slice.call(this.shadowRoot.querySelector('.need-filter').querySelectorAll('input'));
+    avoidFilterInputs.map(element => {
+      if(this.avoidList.includes(parseInt(element.id))){
+        element.checked = true;
+      }
+    });
+
+    needFilterInputs.map(element => {
+      if(this.needList.includes(parseInt(element.id))){
+        element.checked = true;
+      }
+    });
   }
 
 }

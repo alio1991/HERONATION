@@ -25,6 +25,7 @@ export class DefaultView extends connect(store)(LitElement) {
       transform: skewX(-18deg);
       cursor: pointer;
     }
+
     .selector-citizen{
       transition: background-color ease-in-out 0.8s;
       background-color: rgba(var(--purple-color), 0.25);
@@ -80,17 +81,6 @@ export class DefaultView extends connect(store)(LitElement) {
     super();
   }
 
-  // firstUpdated() {
-  //   if(this.shadowRoot.querySelector('.selector-citizen')){
-  //     this.shadowRoot.querySelector('.selector-citizen').addEventListener('mouseenter', this.hoverCitizen);
-  //     this.shadowRoot.querySelector('.selector-citizen').addEventListener('mouseleave', this.leaveHover);
-  //   }
-  //   if(this.shadowRoot.querySelector('.selector-corporation')){
-  //     this.shadowRoot.querySelector('.selector-corporation').addEventListener('mouseenter', this.hoverCorporation);
-  //     this.shadowRoot.querySelector('.selector-corporation').addEventListener('mouseleave', this.leaveHover);
-  //   }
-  // }
-
   render() {
     if (store.getState().loginStatus.status) {
       if (store.getState().loginStatus.loginType === 'ROLE_DONANTE') {
@@ -101,24 +91,14 @@ export class DefaultView extends connect(store)(LitElement) {
     } else {
       return html`
         <div class="selector selector-citizen"  @click="${() => { this.selectUserType('ROLE_DONANTE', 'selector-citizen', 'selector-corporation') }}">
-          <h1>Citizen</h1>  
+          <h1>Donante</h1>  
         </div>
         <div class="selector selector-corporation" @click="${() => { this.selectUserType('ROLE_EMPRESA', 'selector-corporation', 'selector-citizen') }}">
-          <h1>Corporation</h1>  
+          <h1>Empresa</h1>  
         </div>
       `;
     }
   }
-
-  // hoverCitizen(){
-  //   if(this.shadowRoot.querySelector('.selector-corporation'))
-  //     this.shadowRoot.querySelector('.selector-corporation').classList.add('selector-nothovered')
-  // }
-
-  // hoverCorporation(){
-  //   if(this.shadowRoot.querySelector('.selector-citizen'))
-  //     this.shadowRoot.querySelector('.selector-citizen').classList.add('selector-nothovered')
-  // }
 
   selectUserType(userType, expanded, colapsed){
     store.dispatch(setUserType(userType));
