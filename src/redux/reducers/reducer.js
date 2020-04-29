@@ -7,7 +7,8 @@ const initialStatus = {
   loginStatus:
   {
     status: false,
-    loginType: 0
+    loginType: 0,
+    loginId: 0
   },
   userInfo: {}
 };
@@ -32,13 +33,14 @@ export const reducer = (state = initialStatus, action) => {
         coordinates: action.coordinates,
         location: ''
       }
-
+      
     case 'SET_LOGIN':
       let newLogin = {...initialStatus.loginStatus};
       LOGIN_TYPE.forEach(login => {
-        if (login.name === action.loginImported && login.name !== 'NONE') {
+        if (login.name === action.loginImported.name && login.name !== 'NONE') {
           newLogin.status = true;
-          newLogin.loginType = action.loginImported;
+          newLogin.loginType = action.loginImported.name;
+          newLogin.loginId = action.loginImported.id;
         }
       })
       return {

@@ -72,9 +72,9 @@ export class MainHeader extends connect(store)(LitElement) {
   }
 
   render() {
-    const userType = store.getState().loginStatus.loginType;
+    const userName = store.getState().userInfo.nombre;
     const findComponent = store.getState().loginStatus.status
-      ? html`<user-logged .userType=${userType}></user-logged>`
+      ? html`<user-logged .userName=${userName}></user-logged>`
       : html`<find-centers></find-centers>`;
 
     return html`

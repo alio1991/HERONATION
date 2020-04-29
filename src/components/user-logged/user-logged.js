@@ -60,7 +60,7 @@ export class UserLogged extends connect(store)(LitElement) {
 
   static get properties() {
     return {
-      userType: {
+      userName: {
         type: String
       },
       showDetails: {
@@ -79,7 +79,7 @@ export class UserLogged extends connect(store)(LitElement) {
 
     return html`
       <div class="user-logo" @click=${this.manageInfoVisibility}>
-        <p>${this.userType}</p>
+        <p>${this.userName}</p>
       </div>
       <div class="options hidden" @mouseleave=${this.hideInfo} >
         <div class="option" @click=${this.editInfo}>Editar perfil</div>

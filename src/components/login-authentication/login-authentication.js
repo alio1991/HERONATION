@@ -1,9 +1,9 @@
 import { html, css, LitElement } from 'lit-element';
 import { EMAIL_REG } from '../../assets/data/data.js'
-import { setLogin } from './../../redux/actions/actions.js';
 import { store } from './../../redux/store.js';
 import { Router } from '@vaadin/router';
-import { baseUrl } from '../../../base.route.js'
+import { baseUrl } from '../../../base.route.js';
+import { setUserInfo, setLogin } from './../../redux/actions/actions.js';
 
 export class LoginAuthentication extends LitElement {
   static get properties() {
@@ -163,16 +163,37 @@ export class LoginAuthentication extends LitElement {
     })
     .then(response => response.json())
     .then( token => {
-      console.log(token);
-      
       if(token['access_token']){        
         sessionStorage.setItem('heronationToken', token['access_token']);
         sessionStorage.setItem('email', token['email_usuario']);
-        sessionStorage.setItem('userType', token.rol);
-        store.dispatch(setLogin(token.rol));
+        sessionStorage.setItem('userType', token.rol.nombre);
+        store.dispatch(setLogin({name: token.rol.nombre,id: token.rol.id}));
+        this.getUserData();
         Router.go('/');
       }      
     });
+  }
+
+  getUserData(){
+    const token = sessionStorage.getItem('heronationToken');
+    const userType = sessionStorage.getItem('userType')==='ROLE_DONANTE' ? 'donantes' : 'empresas';
+    const email = sessionStorage.getItem('email');
+    if(token){
+      fetch(`${baseUrl}/api/usuario-${userType}/email/${email}`,{
+        headers: {
+          'Authorization': 'Bearer '+ token
+        },
+      })
+      .then(response => response.json())
+      .then( elem => {
+        store.dispatch(setUserInfo(elem));
+        store.dispatch(setLogin({name:elem.usuario.rol.nombre,id:elem.usuario.rol.id}));
+        this.userLogged = true;
+      }).catch(error => {
+        this.userLogged = false;
+        Router.go('/');
+      });
+    }
   }
 }
 customElements.define('login-authentication', LoginAuthentication);

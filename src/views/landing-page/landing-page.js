@@ -2,9 +2,10 @@ import { html, css, LitElement } from 'lit-element';
 import { initRouter } from '../../router';
 import { connect } from 'pwa-helpers';
 import { store } from './../../redux/store.js'
-import { setUserInfo } from './../../redux/actions/actions.js';
+import { setUserInfo, setLogin } from './../../redux/actions/actions.js';
 import { LOGIN_TYPE } from '../../assets/data/data.js';
 import { baseUrl } from '../../../base.route.js'
+import { Router } from '@vaadin/router';
 import '../../components/main-header/main-header.js';
 
 
@@ -55,13 +56,17 @@ export class LandingPage extends connect(store) (LitElement) {
     const userType = sessionStorage.getItem('userType')==='ROLE_DONANTE' ? 'donantes' : 'empresas';
     const email = sessionStorage.getItem('email');
     if(token){
-      fetch(`${baseUrl}/api/usuario-${userType}/${email}`)
+      fetch(`${baseUrl}/api/usuario-${userType}/email/${email}`,{
+        headers: {
+          'Authorization': 'Bearer '+ token
+        },
+      })
       .then(response => response.json())
       .then( elem => {
-        store.dispatch(setUserInfo((elem)));
+        store.dispatch(setUserInfo(elem));
+        store.dispatch(setLogin({name:elem.usuario.rol.nombre,id:elem.usuario.rol.id}));
         this.userLogged = true;
-      })
-      .catch(function(error) {
+      }).catch(error => {
         this.userLogged = false;
         Router.go('/');
       });
