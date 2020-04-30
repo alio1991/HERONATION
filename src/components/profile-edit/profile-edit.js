@@ -120,7 +120,17 @@ export class ProfileEdit extends LitElement {
             <div id="form">
               ${
                 indexList.map(field => {
-                  return html`<div><label>${field} </label><input class="form-field" name="${field}" type="text" value="${this.userData[field]}"/></div>`
+                  console.log(this.userData[field])
+                  if(field === 'direccion'){
+                    return html`
+                      <div><label>Calle</label><input class="form-field" name="calle" type="text" value="${this.userData.direccion.calle}"/></div>
+                      <div><label>CP</label><input class="form-field" name="cp" type="text" value="${this.userData.direccion.codigoPostal}"/></div>
+                      <div><label>Población</label><input class="form-field" name="poblacion" type="text" value="${this.userData.direccion.poblacion.nombre}"/></div>
+                      <div><label>Provincia</label><input class="form-field" name="provincia" type="text" value="${this.userData.direccion.poblacion.provincia}"/></div>
+                    `
+                  }else{
+                    return html`<div><label>${field} </label><input class="form-field" name="${field}" type="text" value="${this.userData[field]}"/></div>`
+                  }
                 })
                 }
               </div>
