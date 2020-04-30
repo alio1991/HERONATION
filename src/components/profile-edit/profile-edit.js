@@ -121,14 +121,14 @@ export class ProfileEdit extends LitElement {
               ${
                 indexList.map(field => {                  
                   if(field === 'direccion'){
-                    if(this.userData.direccion){
+                    if(this.userData.direccion){ //El campo dirección se desglosa en varios
                       return html`
                         <div><label>Calle</label><input class="form-field" name="calle" type="text" value="${this.userData.direccion.calle || ''}"/></div>
                         <div><label>CP</label><input class="form-field" name="cp" type="text" value="${this.userData.direccion.codigoPostal || ''}"/></div>
                         <div><label>Población</label><input class="form-field" name="poblacion" type="text" value="${this.userData.direccion.poblacion.nombre || ''}"/></div>
                         <div><label>Provincia</label><input class="form-field" name="provincia" type="text" value="${this.userData.direccion.poblacion.provincia || ''}"/></div>
                       `
-                    }else{
+                    }else{ //Si el objeto dirección viene a null desde back
                       return html`
                         <div><label>Calle</label><input class="form-field" name="calle" type="text"/></div>
                         <div><label>CP</label><input class="form-field" name="cp" type="text"/></div>
