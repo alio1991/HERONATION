@@ -57,6 +57,9 @@ export class MainHeader extends connect(store)(LitElement) {
       },
       companyName: {
         type: String
+      },
+      userName: {
+        type: String
       }
     };
   }
@@ -64,17 +67,18 @@ export class MainHeader extends connect(store)(LitElement) {
   constructor() {
     super();
     this._page = '';
-    this.userLogged = store.getState().loginStatus.status ? store.getState().loginStatus.loginType : '';
+    // this.userLogged = store.getState().loginStatus.status ? store.getState().loginStatus.loginType : '';
+    this.userName = store.getState().userInfo.nombre;
   }
 
   stateChanged(state) {
-    this.userLogged = state.loginStatus.status ? store.getState().loginStatus.loginType : '';
+    // this.userLogged = state.loginStatus.status ? store.getState().loginStatus.loginType : '';
+    this.userName = state.userInfo.nombre;
   }
 
   render() {
-    const userName = store.getState().userInfo.nombre;
     const findComponent = store.getState().loginStatus.status
-      ? html`<user-logged .userName=${userName}></user-logged>`
+      ? html`<user-logged .userName=${this.userName}></user-logged>`
       : html`<find-centers></find-centers>`;
 
     return html`
@@ -88,8 +92,8 @@ export class MainHeader extends connect(store)(LitElement) {
 
   }
 
-  updated(changgeProps) {
-    if (changgeProps.has('_page')) {
+  updated(changeProps) {
+    if (changeProps.has('_page')) {
       initRouter(this.shadowRoot.querySelector('main'));
     }
   }
