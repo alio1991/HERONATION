@@ -67,12 +67,10 @@ export class MainHeader extends connect(store)(LitElement) {
   constructor() {
     super();
     this._page = '';
-    // this.userLogged = store.getState().loginStatus.status ? store.getState().loginStatus.loginType : '';
     this.userName = store.getState().userInfo.nombre;
   }
 
   stateChanged(state) {
-    // this.userLogged = state.loginStatus.status ? store.getState().loginStatus.loginType : '';
     this.userName = state.userInfo.nombre;
   }
 
