@@ -119,14 +119,23 @@ export class ProfileEdit extends LitElement {
             <h3>Modifica aquí tus datos ${this.userData.nombre}</h3>
             <div id="form">
               ${
-                indexList.map(field => {
+                indexList.map(field => {                  
                   if(field === 'direccion'){
-                    return html`
-                      <div><label>Calle</label><input class="form-field" name="calle" type="text" value="${this.userData.direccion.calle}"/></div>
-                      <div><label>CP</label><input class="form-field" name="cp" type="text" value="${this.userData.direccion.codigoPostal}"/></div>
-                      <div><label>Población</label><input class="form-field" name="poblacion" type="text" value="${this.userData.direccion.poblacion.nombre}"/></div>
-                      <div><label>Provincia</label><input class="form-field" name="provincia" type="text" value="${this.userData.direccion.poblacion.provincia}"/></div>
-                    `
+                    if(this.userData.direccion){
+                      return html`
+                        <div><label>Calle</label><input class="form-field" name="calle" type="text" value="${this.userData.direccion.calle || ''}"/></div>
+                        <div><label>CP</label><input class="form-field" name="cp" type="text" value="${this.userData.direccion.codigoPostal || ''}"/></div>
+                        <div><label>Población</label><input class="form-field" name="poblacion" type="text" value="${this.userData.direccion.poblacion.nombre || ''}"/></div>
+                        <div><label>Provincia</label><input class="form-field" name="provincia" type="text" value="${this.userData.direccion.poblacion.provincia || ''}"/></div>
+                      `
+                    }else{
+                      return html`
+                        <div><label>Calle</label><input class="form-field" name="calle" type="text"/></div>
+                        <div><label>CP</label><input class="form-field" name="cp" type="text"/></div>
+                        <div><label>Población</label><input class="form-field" name="poblacion" type="text"/></div>
+                        <div><label>Provincia</label><input class="form-field" name="provincia" type="text"/></div>
+                      `
+                    }
                   }else{
                     return html`<div><label>${field} </label><input class="form-field" name="${field}" type="text" value="${this.userData[field]}"/></div>`
                   }
