@@ -5,23 +5,29 @@ export class CenterCard extends LitElement {
   static get styles() {
     return css`
     h2, h4{
-      margin:0px;
+      margin: 0px;
     }
 
     :host {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
     }
 
     .container{
       position: relative;
       display: flex;
       flex-direction: column;
-      width: 300px;
-      height: 150px;
-      background-color: rgba(var(--base-color), .8);
+      max-width: 450px;
+      width: 80%;
+      height: 180px;
+      background-color: rgba(var(--base-color), .9);
       border-radius: 10px;
       margin: 5px;
       box-sizing: border-box;
       overflow:hidden;
+      align-items: flex-start;
     }
 
     .text-container{
@@ -29,15 +35,17 @@ export class CenterCard extends LitElement {
       width: 100%;
       height: 100%;
       justify-content: center;
-      align-content: center;
-      justify-items: center;
-      align-items: center;
+      text-align: left;
       flex-direction: column;
       align-items: center;
       z-index:4;
       font-weight: 700;
-      color: rgb(var(--base-color));
-      text-shadow: 1px 1px 3px #000;
+      color: rgba(var(--purple-color),1);
+      text-shadow:    
+      -1px -1px 0 #000,  
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000;
       font-size: 1.2em;
     }
 
@@ -65,6 +73,26 @@ export class CenterCard extends LitElement {
       width: 55px;
       height: 55px;
     }
+
+    .data{
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      padding-top: 15px;
+      text-shadow: 0 0 0 black;
+      font-size: 1.2rem;
+      color: black;
+    }
+
+    label{
+      text-shadow:    
+      -1px -1px 0 #000,  
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000;
+      color: rgb(var(--base-color));
+      font-size: 1.5rem;
+    }
     `;
   }
 
@@ -82,15 +110,19 @@ export class CenterCard extends LitElement {
   render() {    
     return html`
       <div id="center" class="container">
-      <div class="text-container">
-        <h2>${this.center.nombre}</h2>
-        <h4>${this.center.telefono}</h4>
-        <h4>${this.center.direccion}</h4>
-      </div>
-      <div class="background-styling">
-        <div class="medium-circle"></div>
-        <div class="small-circle"></div>
-      </div>
+        <div class="text-container">
+         <h2>${this.center.nombre}</h2>
+          <div class="data">
+            <h4><label>Teléfono:</label> ${this.center.telefono ||  'Desconocido'}</h4>
+            <h4><label>Calle:</label> ${this.center.direccion ? this.center.direccion.calle : 'Desconocido'}</h4>
+            <h4><label>Población:</label> ${this.center.direccion ? this.center.direccion.poblacion.nombre : 'Desconocido'}</h4>
+            <h4><label>Provincia:</label> ${this.center.direccion ? this.center.direccion.poblacion.provincia : 'Desconocido'}</h4>
+          </div>
+        </div>
+        <div class="background-styling">
+          <div class="medium-circle"></div>
+          <div class="small-circle"></div>
+        </div>
       </div>
     `;
   }

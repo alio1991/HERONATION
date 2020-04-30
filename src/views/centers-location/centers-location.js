@@ -16,10 +16,12 @@ export class CentersLocation extends connect(store)(LitElement) {
       width: 100%;
       height: 100%;
       padding-top: var(--header-height);
+      box-sizing: border-box;
     }
     
     nearby-centers{
-      width: 80%;
+      width: 100%;
+      height: calc(100% - var(--filter-height));
     }
 
     .filters{
@@ -27,9 +29,9 @@ export class CentersLocation extends connect(store)(LitElement) {
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: space-evenly;
+      height: var(--filter-height);
       width: 100%;
       background-color: rgb(var(--base-color),0.5);
-      height: fit-content;
       padding: 5px;
       box-sizing: border-box;
     }
@@ -89,7 +91,9 @@ export class CentersLocation extends connect(store)(LitElement) {
         <div class="filters">
           ${this.categories.map(elem => html`<div class="filter-option"><input type="checkbox" id=${elem.id} @change=${this.filterSelected}/><label>${elem.nombre}</label></div>`)}
         </div>
-        ${this.centersLocation!==undefined? html`<nearby-centers .centersLocation=${this.centersLocation} .userLocation =${this.userLocation}></nearby-centers>`: ''}
+        ${this.centersLocation
+          ? html`<nearby-centers .centersLocation=${this.centersLocation} .userLocation =${this.userLocation}></nearby-centers>`
+          : ''}
     `;
   }
 

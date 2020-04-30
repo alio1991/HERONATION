@@ -8,8 +8,12 @@ export class NearbyCenters extends LitElement {
     return css`
     :host {
       display: flex;
+      justify-content: center;
+      align-items: center;
       width: 100%;
-      height:70%;
+      height: 100%;
+      border-top: 1px solid black;
+      box-sizing: border-box;
     }
 
     h3{
@@ -21,20 +25,29 @@ export class NearbyCenters extends LitElement {
 
     #map{
       display: flex;
-      margin: 10px;
+      padding: 10px;
       justify-content: center;
       align-items: center;
       width: 60%;
       height: 100%;
+      box-sizing: border-box;
     }
 
+    .centers-container{
+      width: 40%;
+      height: 100%;
+      background-color: rgb(var(--base-color),0.3);
+    }
+
+    .centers-list::-webkit-scrollbar {display: none;}
     .centers-list{
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      width: 40%;
-      height: 100%;
+      width: 100%;
+      height: 85%;
+      overflow-y: scroll;
+      box-sizing: border-box;
     }
 
     `;
@@ -59,11 +72,13 @@ export class NearbyCenters extends LitElement {
     return html`
         <div id="map">
         </div>
-        <div class="centers-list">
+        <div class="centers-container">
           <h3>Centros Cercanos</h3>
-          ${this.centersLocation.map(center => html`
-            <center-card .center=${center}></center-card>
-          `)}
+          <div class="centers-list">
+            ${this.centersLocation.map(center => html`
+              <center-card .center=${center}></center-card>
+            `)}
+          </div>
         </div>
     `;
   }
@@ -74,7 +89,7 @@ export class NearbyCenters extends LitElement {
       if (this.userLocation && this.userLocation.latitude) {
         this.showMap();
       } else {
-        alert('Ubicación no detectada');
+        // alert('Ubicación no detectada');
       }
     }
   }
