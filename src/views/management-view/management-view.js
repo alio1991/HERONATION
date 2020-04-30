@@ -92,27 +92,27 @@ export class ManagementView extends LitElement {
     ];
   }
   firstUpdated() {
-    //PENDIENTES
-    const token = sessionStorage.getItem('heronationToken');
-    const userId =  store.getState().userInfo.id;
-    fetch(baseUrl + '/api/pendant-peticions/'+userId,{
-      headers: {
-        'Authorization': 'Bearer '+ token
-      }})
-    .then(response => response.json())
-    .then(donations => {
-      this.donationsToApprove = [...donations];
-    });
+    // //PENDIENTES
+    // const token = sessionStorage.getItem('heronationToken');
+    // const userId =  store.getState().userInfo.id;
+    // fetch(baseUrl + '/api/pendant-peticions/'+userId,{
+    //   headers: {
+    //     'Authorization': 'Bearer '+ token
+    //   }})
+    // .then(response => response.json())
+    // .then(donations => {
+    //   this.donationsToApprove = [...donations];
+    // });
 
-    //DONACIONES ACEPTADAS y REVOCADAS
-    fetch(baseUrl + '/api/historico-peticions/'+userId,{
-      headers: {
-        'Authorization': 'Bearer '+ token
-      }})
-    .then(response => response.json())
-    .then(donations => {
-      this.donationsToApprove = [...donations];
-    });
+    // //DONACIONES ACEPTADAS y REVOCADAS
+    // fetch(baseUrl + '/api/historico-peticions/'+userId,{
+    //   headers: {
+    //     'Authorization': 'Bearer '+ token
+    //   }})
+    // .then(response => response.json())
+    // .then(donations => {
+    //   this.donationsToApprove = [...donations];
+    // });
   }
 
   render() {

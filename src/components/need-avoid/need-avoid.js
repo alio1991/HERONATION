@@ -154,11 +154,17 @@ export class NeedAvoid extends LitElement {
       if(this.avoidList.includes(parseInt(element.id))){
         element.checked = true;
       }
+      if(this.needList.includes(parseInt(element.id))){
+        element.parentElement.remove();
+      }
     });
 
     needFilterInputs.map(element => {
       if(this.needList.includes(parseInt(element.id))){
         element.checked = true;
+      }
+      if(this.avoidList.includes(parseInt(element.id))){
+        element.parentElement.remove();
       }
     });
   }
