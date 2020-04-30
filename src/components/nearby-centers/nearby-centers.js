@@ -36,6 +36,7 @@ export class NearbyCenters extends LitElement {
     .centers-container{
       width: 40%;
       height: 100%;
+      text-align: center;
       background-color: rgb(var(--base-color),0.3);
     }
 
@@ -73,7 +74,7 @@ export class NearbyCenters extends LitElement {
         <div id="map">
         </div>
         <div class="centers-container">
-          <h3>Centros Cercanos</h3>
+          <h3>Centros Cercanos (${this.centersLocation.length})</h3>
           <div class="centers-list">
             ${this.centersLocation.map(center => html`
               <center-card .center=${center}></center-card>

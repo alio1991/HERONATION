@@ -40,7 +40,7 @@ export class CenterCard extends LitElement {
       align-items: center;
       z-index:4;
       font-weight: 700;
-      color: rgba(var(--purple-color),1);
+      color: white;
       text-shadow:    
       -1px -1px 0 #000,  
       1px -1px 0 #000,
@@ -90,7 +90,7 @@ export class CenterCard extends LitElement {
       1px -1px 0 #000,
       -1px 1px 0 #000,
       1px 1px 0 #000;
-      color: rgb(var(--base-color));
+      color: white;
       font-size: 1.5rem;
     }
     `;
@@ -108,15 +108,17 @@ export class CenterCard extends LitElement {
 
 
   render() {    
+    console.log(this.center);
+    
     return html`
       <div id="center" class="container">
         <div class="text-container">
          <h2>${this.center.nombre}</h2>
           <div class="data">
             <h4><label>Teléfono:</label> ${this.center.telefono ||  'Desconocido'}</h4>
+            <h4><label>Email:</label> ${this.center.usuario.email}</h4>
             <h4><label>Calle:</label> ${this.center.direccion ? this.center.direccion.calle : 'Desconocido'}</h4>
             <h4><label>Población:</label> ${this.center.direccion ? this.center.direccion.poblacion.nombre : 'Desconocido'}</h4>
-            <h4><label>Provincia:</label> ${this.center.direccion ? this.center.direccion.poblacion.provincia : 'Desconocido'}</h4>
           </div>
         </div>
         <div class="background-styling">
