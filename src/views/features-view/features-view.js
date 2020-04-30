@@ -16,7 +16,15 @@ export class FeaturesView extends LitElement {
     .features{
       padding-top: var(--header-height);
       display: flex;
-      justify-content: space-evenly;
+      justify-content: space-between;
+    }
+
+    new-donation{
+      width: 70%;
+    }
+
+    donations-history{
+      width: 30%;
     }
     `;
   }

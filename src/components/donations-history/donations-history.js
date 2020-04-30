@@ -10,6 +10,11 @@ export class DonationsHistory extends LitElement {
       height:100%;
     }
 
+    .history-donation{
+      padding: 5px;
+      border-left: 2px solid rgba(var(--base-color));
+    }
+
     .donation{
       border-radius: 15px;
       background-color: white;
@@ -34,8 +39,8 @@ export class DonationsHistory extends LitElement {
 
   render() {
     return html`
-      <div id="history-donation">
-        <h1>Historial de donaciones</h1>
+      <div class="history-donation">
+        <h1>Donaciones pasadas</h1>
         ${
           this.donationsHistory.map(donation => {
             return html`

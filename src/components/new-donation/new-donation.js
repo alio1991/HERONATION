@@ -9,6 +9,7 @@ export class NewDonation extends LitElement {
     return css`
     :host {
       display: flex;
+      justify-content: center;
       flex-direction: column;
       width: fit-content;
       height:100%;
@@ -16,17 +17,17 @@ export class NewDonation extends LitElement {
 
     .donation-container{
       display: flex;
-      width: 100%;
-      margin-top: 5%;
+      width: 90%;
       height: fit-content;
       flex-direction: column;
-      justify-items: center;
+      justify-content: center;
       align-items: center;
       background-color: rgba(var(--base-color), .7);
       padding: 25px 25px; 
       overflow:hidden;
       border-radius: 10px;
-
+      box-sizing: border-box;
+      margin: 5%;
     }
 
     h1{
@@ -52,6 +53,11 @@ export class NewDonation extends LitElement {
       border: 0px transparent;
       border-radius: 3px;
       font-size: 1em;
+      margin-top: 15px;
+    }
+
+    #quantity{
+      width: 120px;
     }
 
     button{
@@ -130,24 +136,17 @@ export class NewDonation extends LitElement {
             </select>
             <button type="button" @click=${this.addElement}>Agregar</button>
           </form>
-          ${
-          this.donationList.length 
-          ? html`
+          ${this.donationList.length ? html`
           <div class="donation-list">
             <ul>
-              ${
-                this.donationList.map(elem=>{
-                  return html`
-                    <li>
-                      ${elem.quantity} ${elem.measure} de ${elem.name}
-                    </li>
-                  `;
-                })
-              }
-              </ul>
+              ${this.donationList.map(elem=>{return html`
+                  <li>
+                    ${elem.quantity} ${elem.measure} de ${elem.name}
+                  </li>
+              `;})}
+            </ul>
           </div>` 
-          : html``
-          }
+          : html``}
         ${
           this.donationList.length ? html`<button class="button-donation" type="button" @click=${this.changeView}>Realizar Donación</button>` : html``
         }
@@ -178,7 +177,6 @@ export class NewDonation extends LitElement {
     const quantity = ev.target.parentElement.elements[2].value;
     const measure = ev.target.parentElement.elements[3].value;
     this.donationList = [...this.donationList,{name:name,quantity:quantity,measure:measure,category: {id:parseInt(category)}}]    
-    console.log(this.donationList);
     this.corporationFilter(category);
   }
 
@@ -205,11 +203,10 @@ export class NewDonation extends LitElement {
   }
 
   donate(ev){
-    // const enterprise = this.corporationList.find(elem => parseInt(elem.id) === parseInt(ev.target.id));
+    const enterprise = this.corporationList.find(elem => parseInt(elem.id) === parseInt(ev.currentTarget.id));
     const user = store.getState().userInfo;
-    const donation = {usuarioEmpresa: {id: parseInt(ev.target.id)}, productos:this.donationList, usuarioDonante:user}
+    const donation = {usuarioEmpresa: enterprise, productos:this.donationList, usuarioDonante:user}
     const token = sessionStorage.getItem('heronationToken');
-    console.log(donation);
     
     fetch(baseUrl+'/api/donacion',
     {
