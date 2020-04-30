@@ -120,7 +120,6 @@ export class ProfileEdit extends LitElement {
             <div id="form">
               ${
                 indexList.map(field => {
-                  console.log(this.userData[field])
                   if(field === 'direccion'){
                     return html`
                       <div><label>Calle</label><input class="form-field" name="calle" type="text" value="${this.userData.direccion.calle}"/></div>

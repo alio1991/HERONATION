@@ -1,7 +1,8 @@
 import { html, css, LitElement } from 'lit-element';
+import { connect } from 'pwa-helpers';
 import { store } from './../../redux/store.js';
 import '../../components/profile-edit/profile-edit.js';
-export class ProfileView extends LitElement {
+export class ProfileView extends connect(store) (LitElement) {
 
   static get styles() {
     return css`
@@ -23,11 +24,14 @@ export class ProfileView extends LitElement {
 
   constructor() {
     super();
-    this.userData = store.getState().userInfo
   }
 
   firstUpdated() {
     this.userData = store.getState().userInfo
+  }
+  
+  stateChanged(state) {
+    this.userData = state.userInfo;
   }
 
   render() {
