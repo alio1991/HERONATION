@@ -56,7 +56,8 @@ export const reducer = (state = initialStatus, action) => {
 
       return {
         ...state,
-        loginStatus: { ...copyLogin }
+        loginStatus: { ...copyLogin },
+        userInfo: {}
     }
 
     case 'SET_USER_INFO':

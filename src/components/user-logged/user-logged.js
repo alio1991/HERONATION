@@ -103,15 +103,19 @@ export class UserLogged extends connect(store)(LitElement) {
   logout(){
     this.manageInfoVisibility();
     store.dispatch(setLogout());
-    sessionStorage.removeItem('heronationToken');
-    sessionStorage.removeItem('email');
-    sessionStorage.removeItem('userType');
+    this.deleteUserData();
     Router.go('/');
   }
 
   hideInfo(){
     this.showDetails = false;
     this.shadowRoot.querySelector('.options').classList.add('hidden');
+  }
+
+  deleteUserData(){
+    sessionStorage.removeItem('heronationToken');
+    sessionStorage.removeItem('email');
+    sessionStorage.removeItem('userType');
   }
 
 }

@@ -178,7 +178,7 @@ export class LoginAuthentication extends LitElement {
     const token = sessionStorage.getItem('heronationToken');
     const userType = sessionStorage.getItem('userType')==='ROLE_DONANTE' ? 'donantes' : 'empresas';
     const email = sessionStorage.getItem('email');
-    if(token){
+    if(token){ //Petición login: Authentication
       fetch(`${baseUrl}/api/usuario-${userType}/email/${email}`,{
         headers: {
           'Authorization': 'Bearer '+ token
@@ -191,7 +191,8 @@ export class LoginAuthentication extends LitElement {
         this.userLogged = true;
       }).catch(error => {
         this.userLogged = false;
-        Router.go('/');
+        alert('Usuario o Password incorrectos');
+        // Router.go('/');
       });
     }
   }
